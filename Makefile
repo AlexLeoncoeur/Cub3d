@@ -17,7 +17,7 @@ CFILES = main.c\
 
 PARSER_FILES = 
 
-RAY_CASTING_CFILES = 
+RAY_CASTING_CFILES = movement.c
 
 # DIRECTORIES 
 SRC_DIR = src/
@@ -30,7 +30,7 @@ OBJ_DIR = objs/
 OFILES = $(addprefix $(OBJ_DIR), $(CFILES:.c=.o))
 PARSER_OFILES = $(addprefix $(OBJ_DIR)parser/, $(PARSER_FILES:.c=.o))
 BUILT_IN_OFILES = $(addprefix $(OBJ_DIR)built_ins/, $(BUILT_IN_CFILES:.c=.o))
-RAY_CASTING_OFILES = $(addprefix $(OBJ_DIR)ray_casting/, $(ray_casting_CFILES:.c=.o))
+RAY_CASTING_OFILES = $(addprefix $(OBJ_DIR)ray_casting/, $(RAY_CASTING_CFILES:.c=.o))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)
@@ -42,7 +42,7 @@ $(OBJ_DIR)parser/%.o: $(PARSER_DIR)%.c
 	@ echo "$(BLUE)-Compiling File: $(CYAN)parser/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
-$(OBJ_DIR)ray_casting/%.o: $(ray_casting_SRC_DIR)%.c
+$(OBJ_DIR)ray_casting/%.o: $(RAY_CASTING_SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)/ray_casting/
 	@ echo "$(BLUE)-Compiling File: $(CYAN)ray_casting/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
@@ -86,7 +86,7 @@ $(BONUS_NAME): $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
 
 clean:
 	@ echo "$(RED)CLEANING PROJECT ... $(RESET)"
-	@ rm -f $(OFILES) $(ORDER_OFILES) $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
+	@ rm -rf $(OBJ_DIR)
 	@ make --silent -C "include/libft/" fclean
 	@ make --silent -C "include/MLX42/build/" clean
 	@ echo "$(YELLOW)PROJECT CLEANED!\n $(RESET)"
