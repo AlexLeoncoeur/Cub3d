@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:27:18 by jcallejo         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:52:44 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	ft_main_parser(t_data *data, char *file)
 	char	**map;
 	int		fd;
 	int		i;
+	int		*coords;
 	
 	i = count_lines(file);
 	map = malloc(sizeof(char *) * (i + 1));
@@ -132,5 +133,15 @@ void	ft_main_parser(t_data *data, char *file)
 		ft_errors(data, ERR_FD, NULL);
 	}
 	i = 0;
-	parse_textures(data, fd);
+	map[i] = parse_textures(data, fd);
+	while (map[i] && map[i][0] == '\n')
+	{
+		free(map[i]);
+		map[i] = get_next_line(fd);
+	}
+	if (map[i] && map[i][0] == '\n')
+		free(map[i]);
+	map[i] = 0;
+	coords = ft_player_coords(map); // Esto va a ser fucion para tener bien las coords del jugafor
+	ft_set_position(data, coords); // Y esto para ponerle la posicion inicial
 }
