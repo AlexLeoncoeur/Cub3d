@@ -6,13 +6,13 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/12/12 13:21:28 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:13:37 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void ft_close(mlx_key_data_t keydata, void *param)
+void	ft_close(mlx_key_data_t keydata, void *param)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
 		ft_exit((t_data *)param, EXIT_SUCCESS);
@@ -31,7 +31,7 @@ void	ft_clean_array(char **array)
 	free(array);
 }
 
-static void ft_clean(t_data *data)
+static void	ft_clean(t_data *data)
 {
 	if (!data->mlx)
 		return ;

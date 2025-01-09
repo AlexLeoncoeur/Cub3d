@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/12 13:42:51 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:26:20 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_paths
 
 typedef struct s_data
 {
-	char 			**map;
-	t_player 		*player;
+	char			**map;
+	t_player		*player;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	int32_t			width;
@@ -63,7 +63,6 @@ typedef struct s_data
 	t_paths			text_paths;
 }	t_data;
 
-
 /* -- main.c -- */
 void	ft_resize(int width, int height, void *param);
 
@@ -73,7 +72,7 @@ void	move_down(t_game_core *game);
 void	move_left(t_game_core *game);
 void	move_right(t_game_core *game);
 
-/* -- parser.c -- */
+/* -- ft_main_parser.c -- */
 
 /**
  * @brief Function that handles all the parsing of the map
@@ -82,6 +81,16 @@ void	move_right(t_game_core *game);
  * @param file 
  */
 void	ft_main_parser(t_data *data, char *file);
+
+/* -- ft_player_position.c -- */
+
+/**
+ * @brief Gets the position of the player and passes it to data struct
+ * 
+ * @param map 
+ * @param data 
+ */
+void	ft_player_coords(t_data *data, char **map);
 
 /* -- ft_exit.c -- */
 

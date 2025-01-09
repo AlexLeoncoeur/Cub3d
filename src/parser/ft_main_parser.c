@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_parser.c                                      :+:      :+:    :+:   */
+/*   ft_main_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2024/12/13 11:52:44 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:26:42 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	set_colors(t_data *data, char **aux)
 {
-	uint8_t		color[3];
+	uint8_t		col[3];
 	char		**rgb;
 	int			i;
 
@@ -22,7 +22,7 @@ static void	set_colors(t_data *data, char **aux)
 	rgb = ft_split(aux[1], ',');
 	if (!rgb)
 		ft_errors(data, ERR_COLOR, "error: invalid color");
-	while(rgb[i])
+	while (rgb[i])
 		i++;
 	if (i < 3 && aux[0][0] != '\n')
 	{
@@ -34,9 +34,9 @@ static void	set_colors(t_data *data, char **aux)
 	while (++i < 3)
 		rgb[i] = ft_atoi(rgb[i]);
 	if (aux[0][0] == 'F')
-		data->floor = color[0] << 24 | color[1] << 16 | color[2] << 8 | 0x000000FF;
+		data->floor = col[0] << 24 | col[1] << 16 | col[2] << 8 | 0x000000FF;
 	else
-		data->sky = color[0] << 24 | color[1] << 16 | color[2] << 8 | 0x000000FF;
+		data->sky = col[0] << 24 | col[1] << 16 | col[2] << 8 | 0x000000FF;
 	ft_clean_array(rgb);
 }
 
@@ -44,7 +44,7 @@ static void	save_textures(t_data *data, char *line)
 {
 	char	**aux;
 	int		len;
-	
+
 	len = 0;
 	aux = ft_split(line, ' ');
 	if (!aux)
@@ -69,15 +69,15 @@ static void	save_textures(t_data *data, char *line)
 	ft_clean_array(aux);
 }
 
-static void	parse_textures(t_data *data, int fd)
+static char	*parse_textures(t_data *data, int fd)
 {
 	char	*line;
 
 	line = get_next_line(fd);
-	while (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3) ||
-			!ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3) ||
-			!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2) || 
-			!ft_strncmp(line, "\n", 1))
+	while (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
+		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3)
+		|| !ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)
+		|| !ft_strncmp(line, "\n", 1))
 	{
 		if (!ft_strncmp(line, "NO ", 3) && data->text_paths.north)
 			ft_error(data, ERR_TEXT, "Error: north wall texture");
@@ -123,8 +123,7 @@ void	ft_main_parser(t_data *data, char *file)
 	char	**map;
 	int		fd;
 	int		i;
-	int		*coords;
-	
+
 	i = count_lines(file);
 	map = malloc(sizeof(char *) * (i + 1));
 	fd = open(file, O_RDONLY);
@@ -142,6 +141,5 @@ void	ft_main_parser(t_data *data, char *file)
 	if (map[i] && map[i][0] == '\n')
 		free(map[i]);
 	map[i] = 0;
-	coords = ft_player_coords(map); // Esto va a ser fucion para tener bien las coords del jugafor
-	ft_set_position(data, coords); // Y esto para ponerle la posicion inicial
+	ft_player_coords(data, map);
 }
