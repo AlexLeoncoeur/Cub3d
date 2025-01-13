@@ -17,7 +17,7 @@ CFILES = main.c\
 
 PARSER_FILES = 
 
-RAY_CASTING_CFILES = movement.c
+RAY_CASTING_CFILES = movement.c ray_casting.c
 
 # DIRECTORIES 
 SRC_DIR = src/

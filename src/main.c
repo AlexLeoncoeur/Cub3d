@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/13 13:11:59 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:52:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,59 @@ void	ft_resize(int width, int height, void *param)
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
 
-void	ft_draw_pixels(mlx_image_t *img, int pj_x, int pj_y, int x_limit, int y_limit)
+static void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y)
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
+
+	i = -8;
+	while (i < 8)
+	{
+		j = -16;
+		while (j < 16)
+		{
+			mlx_put_pixel(img, pj_x + i, pj_y + j, 255);
+			j++;
+		}
+		i++;
+	}
+	i = -16;
+	while (i < 16)
+	{
+		j = 8;
+		while (j < 16)
+		{
+			mlx_put_pixel(img, pj_x + i, pj_y + j, 255);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_draw_pixels(void *param)
+{
+	int			x;
+	int			y;
+	t_game_core	*game;
 
 	x = 0;
 	y = 0;
-	while (y <= y_limit)
+	game = (t_game_core *)param;
+	game->current_time = ft_get_time();
+	if (game->current_time - game->last_time >= game->delay)
 	{
-		x = 0;
-		while (x <= x_limit)
+		game->last_time = game->current_time;
+		while (y < game->y_limit)
 		{
-			if ((x >= pj_x - 16 && x <= pj_x + 16) && (y >= pj_y - 16 && y <= pj_y + 16))
-			mlx_put_pixel(img, x, y, 0);
-			x++;
+			x = 0;
+			while (x < game->x_limit)
+			{
+				mlx_put_pixel(game->img, x, y, 0);
+				x++;
+			}
+			y++;
 		}
-		y++;
+		ft_draw_player(game->img, game->pj->x, game->pj->y);
 	}
 }
 
@@ -76,16 +112,22 @@ int	main(void)
 	if (!id || !data || !pj)
 		exit(EXIT_FAILURE);
 	img = mlx_new_image(id, 1024, 512);
-	ft_memset(img->pixels, 0, img->width * img->height * sizeof(int32_t));
+	/* ft_memset(img->pixels, 0, img->width * img->height * sizeof(int32_t)); */
 	mlx_image_to_window(id, img, 0, 0);
 	mlx_resize_hook(id, ft_resize, NULL);
-	pj->img = mlx_new_image(id, 64, 64);
-	ft_memset(pj->img->pixels, 255, pj->img->width * pj->img->height * sizeof(int32_t));
+	/* pj->img = mlx_new_image(id, 64, 64); */
+	/* ft_memset(pj->img->pixels, 255, pj->img->width * pj->img->height * sizeof(int32_t)); */
 	pj->x = 512;
 	pj->y = 256;
 	data->pj = pj;
+	data->img = img;
+	data->x_limit = 1024;
+	data->y_limit = 512;
 	printf("Imagen a pantalla\n");
-	mlx_image_to_window(id, pj->img, pj->x, pj->y);
+	/* mlx_image_to_window(id, pj->img, pj->x, pj->y); */
+	data->last_time = ft_get_time();
+	data->delay = 33;
+	mlx_loop_hook(id, &ft_draw_pixels, data);
 	mlx_key_hook(id, &ft_controls_hook, data);
 	mlx_loop(id);
 	mlx_terminate(id);
