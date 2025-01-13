@@ -13,7 +13,7 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = main.c\
+CFILES = main.c map.c\
 
 PARSER_FILES = 
 

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/13 15:41:34 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:17:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@ typedef struct s_game_core
 	int				last_time;
 	int				current_time;
 	int				delay;
+	char			*map;
+	int				map_x;
+	int				map_y;
+	int				map_s;
 }	t_game_core;
 
 /* -- main.c -- */
+void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y);
 void	ft_resize(int width, int height, void *param);
-void	ft_draw_pixels(void *param);
+void	ft_draw_2d(void *param);
+void	ft_map(t_game_core *game);
+// void	ft_draw_pixels(void *param);
 
 /* -- movement.c -- */
 void	move_up(t_game_core *game);
