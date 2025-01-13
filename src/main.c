@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/10 16:52:18 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:11:59 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ void	ft_resize(int width, int height, void *param)
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
 
+void	ft_draw_pixels(mlx_image_t *img, int pj_x, int pj_y, int x_limit, int y_limit)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y <= y_limit)
+	{
+		x = 0;
+		while (x <= x_limit)
+		{
+			if ((x >= pj_x - 16 && x <= pj_x + 16) && (y >= pj_y - 16 && y <= pj_y + 16))
+			mlx_put_pixel(img, x, y, 0);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	main(void)
 {
 	mlx_t			*id;
@@ -59,11 +79,12 @@ int	main(void)
 	ft_memset(img->pixels, 0, img->width * img->height * sizeof(int32_t));
 	mlx_image_to_window(id, img, 0, 0);
 	mlx_resize_hook(id, ft_resize, NULL);
-	pj->img = mlx_new_image(id, 1, 1);
+	pj->img = mlx_new_image(id, 64, 64);
 	ft_memset(pj->img->pixels, 255, pj->img->width * pj->img->height * sizeof(int32_t));
 	pj->x = 512;
 	pj->y = 256;
 	data->pj = pj;
+	printf("Imagen a pantalla\n");
 	mlx_image_to_window(id, pj->img, pj->x, pj->y);
 	mlx_key_hook(id, &ft_controls_hook, data);
 	mlx_loop(id);
@@ -74,7 +95,6 @@ int	main(void)
 
 /* Hacer una funcion para refrescar
 la pantalla y que se vea al muñeco moverse */
-
 
 	//t_game_core		*data; //estructura con datos del mapa y juego
 

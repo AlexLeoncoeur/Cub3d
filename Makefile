@@ -68,7 +68,7 @@ $(NAME): compiling $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(O
 
 debug: all
 	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME) -g -fsanitize=address
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a $(MLX42) -Iinclude -ldl -lglfw -pthread -lm -o $(NAME) -g -fsanitize=address
 	@ echo "$(RED)DEBUG MODE ACTIVATED!$(RESET)"
 
 libft:

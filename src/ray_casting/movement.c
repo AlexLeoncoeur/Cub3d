@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:25:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2024/12/10 16:50:13 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:52:15 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	move_up(t_game_core *game)
 	int	y;
 	int	next;
 
-	x = game->pj->x * (32);
-	y = game->pj->y * (32);
-	next = (game->pj->y - 1) * (32);
+	x = game->pj->x;
+	y = game->pj->y;
+	next = (game->pj->y - 64);
+	game->pj->y = next;
+	mlx_image_to_window(game->id, game->pj->img, x, next);
 }
 
 void	move_down(t_game_core *game)
@@ -29,9 +31,11 @@ void	move_down(t_game_core *game)
 	int	y;
 	int	next;
 
-	x = game->pj->x * (32);
-	y = game->pj->y * (32);
-	next = (game->pj->y + 1) * (32);
+	x = game->pj->x;
+	y = game->pj->y;
+	next = (game->pj->y + 64);
+	game->pj->y = next;
+	mlx_image_to_window(game->id, game->pj->img, x, next);
 }
 
 void	move_left(t_game_core *game)
@@ -40,9 +44,11 @@ void	move_left(t_game_core *game)
 	int	y;
 	int	next;
 
-	x = game->pj->x * (32);
-	y = game->pj->y * (32);
-	next = (game->pj->x - 1) * (32);
+	x = game->pj->x;
+	y = game->pj->y;
+	next = (game->pj->x - 64);
+	game->pj->x = next;
+	mlx_image_to_window(game->id, game->pj->img, next, y);
 }
 
 void	move_right(t_game_core *game)
@@ -51,7 +57,10 @@ void	move_right(t_game_core *game)
 	int	y;
 	int	next;
 
-	x = game->pj->x * (32);
-	y = game->pj->y * (32);
-	next = (game->pj->x + 1) * (32);
+	x = game->pj->x;
+	y = game->pj->y;
+	next = (game->pj->x + 64);
+	game->pj->x = next;
+	printf("x: %d\ny: %d\n", next, y);
+	mlx_image_to_window(game->id, game->pj->img, next, y);
 }
