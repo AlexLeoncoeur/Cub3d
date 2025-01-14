@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/13 17:47:45 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:42:57 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y)
 	int	i;
 	int	j;
 
-	i = -8;
-	while (i < 8)
+	i = -4;
+	while (i < 4)
 	{
 		j = -16;
 		while (j < 16)
 		{
-			mlx_put_pixel(img, pj_x + i, pj_y + j, 255);
+			mlx_put_pixel(img, pj_x + i, pj_y + j, get_rgba(200, 0, 255, 255));
 			j++;
 		}
 		i++;
@@ -65,7 +65,7 @@ void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y)
 		j = 8;
 		while (j < 16)
 		{
-			mlx_put_pixel(img, pj_x + i, pj_y + j, 255);
+			mlx_put_pixel(img, pj_x + i, pj_y + j, get_rgba(200, 0, 255, 255));
 			j++;
 		}
 		i++;
@@ -106,7 +106,7 @@ int	main(void)
 	t_game_core		*data;
 	t_player		*pj;
 
-	id = mlx_init(1024, 578, "cub3d", true);
+	id = mlx_init(1024, 512, "cub3d", true);
 	data = malloc(sizeof(t_game_core));
 	pj = malloc(sizeof(t_player));
 	if (!id || !data || !pj)
@@ -114,7 +114,7 @@ int	main(void)
 	img = mlx_new_image(id, 1024, 512);
 	mlx_image_to_window(id, img, 0, 0);
 	mlx_resize_hook(id, ft_resize, NULL);
-	pj->x = 512;
+	pj->x = 256;
 	pj->y = 256;
 	data->pj = pj;
 	data->img = img;

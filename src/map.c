@@ -6,11 +6,16 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/13 17:47:29 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:41:36 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
 
 static void	ft_draw_square(t_game_core *game, int x, int y, int color)
 {
@@ -23,7 +28,10 @@ static void	ft_draw_square(t_game_core *game, int x, int y, int color)
 		j = 0;
 		while (j < 64)
 		{
-			mlx_put_pixel(game->img, x + i, y + j, color);
+			if ((i == 0 || i == 64) || (j == 0 || j == 64))
+				mlx_put_pixel(game->img, x + i, y + j, 0);
+			else
+				mlx_put_pixel(game->img, x + i, y + j, color);
 			j++;
 		}
 		i++;
@@ -50,9 +58,9 @@ void	ft_draw_2d(void *param)
 			z++;
 		}
 		if (game->map[z] == '1')
-			ft_draw_square(game, i, j, 255);
+			ft_draw_square(game, i, j, get_rgba(0, 0, 0, 255));
 		else if (game->map[z] == '0')
-			ft_draw_square(game, i, j, 0);
+			ft_draw_square(game, i, j, get_rgba(255, 255, 255, 255));
 		z++;
 		i += 64;
 	}

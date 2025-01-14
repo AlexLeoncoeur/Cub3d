@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/13 17:17:39 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:30:11 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <math.h>
 
 typedef struct s_player
 {
@@ -45,6 +46,9 @@ typedef struct s_game_core
 /* -- main.c -- */
 void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y);
 void	ft_resize(int width, int height, void *param);
+
+/* -- map.c -- */
+int		get_rgba(int r, int g, int b, int a);
 void	ft_draw_2d(void *param);
 void	ft_map(t_game_core *game);
 // void	ft_draw_pixels(void *param);
