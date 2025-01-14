@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/14 13:30:11 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:54:48 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@
 # include <sys/time.h>
 # include <math.h>
 
+# define PI 3.14159265359
+
 typedef struct s_player
 {
 	int				x;
 	int				y;
+	double			pdx;
+	double			pdy;
+	double			pangle;
 	mlx_image_t		*img;
 }	t_player;
 
@@ -38,13 +43,10 @@ typedef struct s_game_core
 	int				current_time;
 	int				delay;
 	char			*map;
-	int				map_x;
-	int				map_y;
-	int				map_s;
 }	t_game_core;
 
 /* -- main.c -- */
-void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y);
+void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y);
 void	ft_resize(int width, int height, void *param);
 
 /* -- map.c -- */

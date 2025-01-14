@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/14 12:41:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:54:29 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,10 @@ void	ft_draw_2d(void *param)
 		z++;
 		i += 64;
 	}
-	ft_draw_player(game->img, game->pj->x, game->pj->y);
+	ft_draw_player(game, game->img, game->pj->x, game->pj->y);
 }
 
 void	ft_map(t_game_core *game)
 {
-	game->map_x = 8;
-	game->map_y = 8;
-	game->map_s = 64;
 	game->map = "11111111\n10100001\n10100001\n10100001\n10000001\n10000101\n10000001\n11111111\0";
 }

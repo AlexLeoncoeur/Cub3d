@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/14 12:42:57 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:04:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,66 @@ void	ft_resize(int width, int height, void *param)
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
 
-void	ft_draw_player(mlx_image_t *img, int pj_x, int pj_y)
+void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y)
 {
 	int	i;
 	int	j;
+	int	z;
 
-	i = -4;
-	while (i < 4)
+	z = game->pj->pdx;
+	i = game->pj->x;
+	j = game->pj->y;
+	while (i >= game->pj->x + game->pj->pdx * 5 && j >= game->pj->y + game->pj->pdy * 5)
 	{
-		j = -16;
-		while (j < 16)
+		while (i >= game->pj->x + game->pj->pdx * 5)
 		{
-			mlx_put_pixel(img, pj_x + i, pj_y + j, get_rgba(200, 0, 255, 255));
-			j++;
+			j = game->pj->y;
+			while (j >= game->pj->y + game->pj->pdy * 5)
+			{
+				mlx_put_pixel(img, i, j, get_rgba(200, 0, 255, 255));
+				j--;
+			}
+			i--;
 		}
-		i++;
+	}
+	while (i <= game->pj->x + game->pj->pdx * 5 && j <= game->pj->y + game->pj->pdy * 5)
+	{
+		while (i <= game->pj->x + game->pj->pdx * 5)
+		{
+			j = game->pj->y;
+			while (j <= game->pj->y + game->pj->pdy * 5)
+			{
+				mlx_put_pixel(img, i, j, get_rgba(200, 0, 255, 255));
+				j++;
+			}
+			i++;
+		}
+	}
+	while (i >= game->pj->x + game->pj->pdx * 5 && j <= game->pj->y + game->pj->pdy * 5)
+	{
+		while (i >= game->pj->x + game->pj->pdx * 5)
+		{
+			j = game->pj->y;
+			while (j <= game->pj->y + game->pj->pdy * 5)
+			{
+				mlx_put_pixel(img, i, j, get_rgba(200, 0, 255, 255));
+				j++;
+			}
+			i--;
+		}
+	}
+	while (i <= game->pj->x + game->pj->pdx * 5 && j >= game->pj->y + game->pj->pdy * 5)
+	{
+		while (i <= game->pj->x + game->pj->pdx * 5)
+		{
+			j = game->pj->y;
+			while (j >= game->pj->y + game->pj->pdy * 5)
+			{
+				mlx_put_pixel(img, i, j, get_rgba(200, 0, 255, 255));
+				j--;
+			}
+			i++;
+		}
 	}
 	i = -16;
 	while (i < 16)
@@ -122,6 +167,9 @@ int	main(void)
 	data->y_limit = 512;
 	data->last_time = ft_get_time();
 	data->delay = 33;
+	data->pj->pdy = 0;
+	data->pj->pdx = 0;
+	data->pj->pangle = 0;
 	ft_map(data);
 	mlx_loop_hook(id, &ft_draw_2d, data);
 	mlx_key_hook(id, &ft_controls_hook, data);
