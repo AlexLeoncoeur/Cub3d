@@ -6,14 +6,14 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 15:40:15 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:15:45 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 //Algoritmo de Bresenham
-static void	draw_line(mlx_image_t *image, t_player *pj)
+static void	draw_pj(mlx_image_t *image, t_player *pj)
 {
 	float	dx;
 	float	dy;
@@ -95,7 +95,7 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y)
 	image = img;
 	if (pj_x < 0 && pj_y > 0)
 		printf("hola");
-	draw_line(game->img, game->pj);
+	draw_pj(game->img, game->pj);
 	i = -8;
 	while (i < 8)
 	{
