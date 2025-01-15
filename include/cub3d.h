@@ -24,6 +24,7 @@
 # define ERR_FD			2
 # define ERR_TEXT		3
 # define ERR_COLOR		4
+# define ERR_MLX		5
 
 typedef struct s_player
 {
@@ -71,6 +72,16 @@ void	move_up(t_game_core *game);
 void	move_down(t_game_core *game);
 void	move_left(t_game_core *game);
 void	move_right(t_game_core *game);
+
+/* -- ft_init.c -- */
+
+/**
+ * @brief Initializes data structure and mlx related stuff
+ * 
+ * @param data 
+ * @param file 
+ */
+void    ft_init(t_data *data, char *file);
 
 /* -- ft_main_parser.c -- */
 

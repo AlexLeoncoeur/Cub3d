@@ -75,6 +75,8 @@ void	ft_errors(t_data *data, int error, char *msg)
 		perror(msg);
 	else if (error == ERR_COLOR)
 		perror(msg);
+	else if (error == ERR_MLX)
+		printf("MLX Error: %s", mlx_strerror(mlx_errno));
 	printf(DEFAULT);
 	ft_exit(data, EXIT_FAILURE);
 }
