@@ -6,11 +6,46 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/14 18:04:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:05:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+static void	draw_line(mlx_image_t *image, t_player *pj)
+{
+	float	dx;
+	float	dy;
+	float	steps;
+	float	increment_x;
+	float	increment_y;
+	float	x;
+	float	y;
+	int		i;
+
+	i = 0;
+	x = pj->x;
+	y = pj->y;
+	dx = fabs(pj->pdx - x);
+	dy = fabs(pj->pdy - y);
+	steps = fmax(dx, dy);
+	increment_x = dx / steps; //increments each axis to know which points to draw
+	increment_y = dy / steps;
+	printf("pdx: %f pdy: %f\n", pj->pdx, pj->pdy);
+	while (i < steps) //to draw the points between the start (p1) and end (p2) point
+	{
+		mlx_put_pixel(image, x, y, get_rgba(0, 0, 0, 255));
+		if (pj->pdx < pj->x)
+			x -= increment_x;
+		else
+			x += increment_x;
+		if (pj->pdy < pj->y)
+			y -= increment_y;
+		else
+			y += increment_y;
+		i++;
+	}
+}
 
 void	ft_controls_hook(mlx_key_data_t keydata, void *param)
 {
@@ -48,11 +83,16 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y)
 	int	i;
 	int	j;
 	int	z;
+	mlx_image_t	*image;
 
 	z = game->pj->pdx;
 	i = game->pj->x;
 	j = game->pj->y;
-	while (i >= game->pj->x + game->pj->pdx * 5 && j >= game->pj->y + game->pj->pdy * 5)
+	image = img;
+	if (pj_x < 0 && pj_y > 0)
+		printf("hola");
+	draw_line(game->img, game->pj);
+	/* while (i >= game->pj->x + game->pj->pdx * 5 && j >= game->pj->y + game->pj->pdy * 5)
 	{
 		while (i >= game->pj->x + game->pj->pdx * 5)
 		{
@@ -114,7 +154,7 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y)
 			j++;
 		}
 		i++;
-	}
+	} */
 }
 
 /* void	ft_draw_pixels(void *param)

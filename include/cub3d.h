@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/14 15:54:48 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:24:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 typedef struct s_player
 {
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 	double			pdx;
 	double			pdy;
 	double			pangle;
