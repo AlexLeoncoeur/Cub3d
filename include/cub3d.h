@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 12:24:05 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:11:42 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 # include <math.h>
 
 # define PI 3.14159265359
+
+typedef struct s_ray
+{
+	int		count;
+	int		mx;
+	int		my;
+	int		mp;
+	int		dof;
+	float	rx;
+	float	ry;
+	float	rangle;
+	float	xo;
+	float	yo;
+}	t_ray;
 
 typedef struct s_player
 {

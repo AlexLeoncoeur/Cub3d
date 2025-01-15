@@ -6,12 +6,13 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 14:59:39 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:40:15 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+//Algoritmo de Bresenham
 static void	draw_line(mlx_image_t *image, t_player *pj)
 {
 	float	dx;
@@ -33,11 +34,11 @@ static void	draw_line(mlx_image_t *image, t_player *pj)
 	increment_y = dy / steps;
 	while (i < steps) //to draw the points between the start (p1) and end (p2) point
 	{
-		mlx_put_pixel(image, x, y, get_rgba(0, 0, 0, 255));
-		mlx_put_pixel(image, x, y + 1, get_rgba(0, 0, 0, 255));
-		mlx_put_pixel(image, x + 1, y, get_rgba(0, 0, 0, 255));
-		mlx_put_pixel(image, x, y - 1, get_rgba(0, 0, 0, 255));
-		mlx_put_pixel(image, x - 1, y, get_rgba(0, 0, 0, 255));
+		mlx_put_pixel(image, x, y, get_rgba(51, 255, 246, 255));
+		mlx_put_pixel(image, x, y + 1, get_rgba(51, 255, 246, 255));
+		mlx_put_pixel(image, x + 1, y, get_rgba(51, 255, 246, 255));
+		mlx_put_pixel(image, x, y - 1, get_rgba(51, 255, 246, 255));
+		mlx_put_pixel(image, x - 1, y, get_rgba(51, 255, 246, 255));
 		if (pj->pdx + pj->x < pj->x)
 			x -= increment_x;
 		else
@@ -101,7 +102,7 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y)
 		j = -8;
 		while (j < 8)
 		{
-			mlx_put_pixel(image, game->pj->x + i, game->pj->y + j, get_rgba(0, 0, 0, 255));
+			mlx_put_pixel(image, game->pj->x + i, game->pj->y + j, get_rgba(51, 255, 246, 255));
 			j++;
 		}
 		i++;
