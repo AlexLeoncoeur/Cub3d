@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 17:48:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:11:09 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	draw_rays(t_game_core *game)
 			ray->mx = (int)ray->rx >> 6;
 			ray->my = (int)ray->ry >> 6;
 			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
+			printf("map->[x, y] = %c\n", game->map[ray->mp]);
+			printf("dof = %d\n", ray->dof);
+			printf("ray->mp = %d\n", ray->mp);
 			if (ray->mp < 8 * 8 && game->map[ray->mp] == 1)
 				ray->dof = 8;
 			else
@@ -112,3 +115,4 @@ void	draw_rays(t_game_core *game)
 		ray->count++;
 	}
 }
+//El problema parece la forma de guardar el mapa, al buscar el bool de la posicion del rayo no da lo que deberia o incluso da \n
