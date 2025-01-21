@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 17:15:45 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:19:23 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,10 @@ int	main(void)
 	pj->y = 256;
 	data->pj = pj;
 	data->img = img;
-	data->x_limit = 1024;
-	data->y_limit = 512;
+	data->xh_limit = 1024;
+	data->yh_limit = 512;
+	data->xv_limit = 0;
+	data->yv_limit = 0;
 	data->last_time = ft_get_time();
 	data->delay = 33;
 	data->pj->pangle = 6.28;

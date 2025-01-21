@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 12:52:54 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:18:25 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ typedef struct s_game_core
 	mlx_t			*id;
 	mlx_image_t		*img;
 	t_player		*pj;
-	int				x_limit;
-	int				y_limit;
+	int				xh_limit;
+	int				yh_limit;
+	int				xv_limit;
+	int				yv_limit;
 	int				last_time;
 	int				current_time;
 	int				delay;

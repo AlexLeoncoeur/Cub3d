@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 14:45:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:26:58 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	draw_rays(t_game_core *game)
 {
 	t_ray	*ray;
 	float	atan;
+	float	ntan; // negative tangent
 
 	ray = malloc(sizeof(t_ray));
 	if (!ray)
@@ -93,17 +94,48 @@ void	draw_rays(t_game_core *game)
 			ray->ry = game->pj->y;
 			ray->dof = 8;
 		}
-		while (ray->dof < 8 && ray->rx < game->x_limit && ray->ry < game->y_limit && ray->rx > 0 && ray->ry > 0) //max of cubes we check
+		while (ray->dof < 8 && ray->rx < game->xh_limit && ray->ry < game->yh_limit && ray->rx > 0 && ray->ry > 0) //max of cubes we check
 		{
-			printf("rx: %f ry: %f\n", ray->rx, ray->ry);
 			ray->mx = (int)ray->rx >> 6;
 			ray->my = (int)ray->ry >> 6;
 			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
-			printf("map->[x, y] = %d\n", game->map[ray->mx][ray->my]);
-			printf("dof = %d\n", ray->dof);
-			printf("ray->my = %d\n", ray->my);
-			printf("ray->mx = %d\n", ray->mx);
-			printf("ray->mp = %d\n", ray->mp);
+			if (ray->mp > 0 && ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
+				ray->dof = 8;
+			else
+			{
+				ray->rx += ray->xo;
+				ray->ry += ray->yo;
+				ray->dof++;
+			}
+		}
+		// -- Vertical lines -- //
+		ray->dof = 0;
+		ntan = -tan(ray->rangle);
+		if (ray->rangle > PI / 2 && ray->rangle < 3 * PI / 2) //Looking left
+		{
+			ray->rx = (((int)game->pj->x >> 6) << 6) - 0.0001;
+			ray->ry = (game->pj->x - ray->rx) * ntan + game->pj->y;
+			ray->xo = -64;
+			ray->yo = -ray->xo * ntan;
+		}
+		if (ray->rangle < PI / 2 || ray->rangle > 3 * PI / 2) //Looking right
+		{
+			ray->rx = (((int)game->pj->x >> 6) << 6) + 64;
+			ray->ry = (game->pj->x - ray->rx) * ntan + game->pj->y;
+			ray->xo = 64;
+			ray->yo = -ray->xo * ntan;
+		}
+		if (ray->rangle == 0 || ray->rangle == PI) //Looking straight up or down
+		{
+			ray->rx = game->pj->x;
+			ray->ry = game->pj->y;
+			ray->dof = 8;
+		}
+		while (ray->mp > 0 && ray->dof < 8 && ray->ry > game->yv_limit && ray->rx > game->xv_limit && ray->ry > 0 && ray->rx > 0) //max of cubes we check
+		{
+			ray->mx = (int)ray->rx >> 6;
+			ray->my = (int)ray->ry >> 6;
+			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
 			if (ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
 				ray->dof = 8;
 			else
