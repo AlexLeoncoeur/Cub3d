@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 17:33:05 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:52:54 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_game_core
 	int				last_time;
 	int				current_time;
 	int				delay;
-	char			*map;
+	int				map[8][8];
 }	t_game_core;
 
 /* -- main.c -- */

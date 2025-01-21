@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/20 13:11:09 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 13:16:30 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-static void	draw_line(mlx_image_t *image, t_player *pj, t_ray *ray)
+/* static void	draw_line(mlx_image_t *image, t_player *pj, t_ray *ray)
 {
 	float	dx;
 	float	dy;
@@ -56,9 +56,9 @@ static void	draw_line(mlx_image_t *image, t_player *pj, t_ray *ray)
 			y += increment_y;
 		i++;
 	}
-}
+} */
 
-void	draw_rays(t_game_core *game)
+/* void	draw_rays(t_game_core *game)
 {
 	t_ray	*ray;
 	float	atan;
@@ -70,7 +70,7 @@ void	draw_rays(t_game_core *game)
 	ray->count = 0;
 	while (ray->count < 1)
 	{
-		/* -- Horizontal lines -- */
+		// -- Horizontal lines -- //
 		ray->dof = 0;
 		atan = -1 / tan(ray->rangle);
 		if (ray->rangle > PI) //Looking down
@@ -99,10 +99,10 @@ void	draw_rays(t_game_core *game)
 			ray->mx = (int)ray->rx >> 6;
 			ray->my = (int)ray->ry >> 6;
 			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
-			printf("map->[x, y] = %c\n", game->map[ray->mp]);
+			printf("map->[x, y] = %d\n", game->map[ray->mp][]);
 			printf("dof = %d\n", ray->dof);
 			printf("ray->mp = %d\n", ray->mp);
-			if (ray->mp < 8 * 8 && game->map[ray->mp] == 1)
+			if (ray->mp < 8 * 8 && game->map[ray->mp][] == 1)
 				ray->dof = 8;
 			else
 			{
@@ -114,5 +114,5 @@ void	draw_rays(t_game_core *game)
 		draw_line(game->img, game->pj, ray);
 		ray->count++;
 	}
-}
+} */
 //El problema parece la forma de guardar el mapa, al buscar el bool de la posicion del rayo no da lo que deberia o incluso da \n
