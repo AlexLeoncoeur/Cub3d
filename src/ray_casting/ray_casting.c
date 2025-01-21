@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 17:57:51 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:01:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,4 +195,3 @@ void	draw_rays(t_game_core *game)
 		ray->count++;
 	}
 }
-//El problema parece la forma de guardar el mapa, al buscar el bool de la posicion del rayo no da lo que deberia o incluso da \n
