@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 16:45:30 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:36:12 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <math.h>
 
 # define PI 3.14159265359
+# define DR 0.0174533
 
 typedef struct s_ray
 {

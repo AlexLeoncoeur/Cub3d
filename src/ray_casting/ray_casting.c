@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 17:32:46 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:57:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,13 @@ void	draw_rays(t_game_core *game)
 	dis_h = 1000000;
 	hx = ray->rx;
 	hy = ray->ry;
-	ray->rangle = game->pj->pangle;
+	ray->rangle = game->pj->pangle - DR * 45;
+	if (ray->rangle < 0)
+		ray->rangle += 2 * PI;
+	if (ray->rangle > 2 * PI)
+		ray->rangle -= 2 * PI;
 	ray->count = 0;
-	while (ray->count < 1)
+	while (ray->count < 90)
 	{
 		// -- Horizontal lines -- //
 		ray->dof = 0;
@@ -115,7 +119,6 @@ void	draw_rays(t_game_core *game)
 			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
 			if (ray->mp > 0 && ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
 			{
-				printf("pipo\n");
 				hx = ray->rx;
 				hy = ray->ry;
 				dis_h = ft_distance(game, hx, hy);
@@ -183,8 +186,12 @@ void	draw_rays(t_game_core *game)
 			ray->ry = hy;
 			ray->rx = hx;
 		}
-		printf("dist_h = %f\ndist_v = %f\n", dis_h, dis_v);
 		draw_line(game->img, game->pj, ray);
+		ray->rangle += DR;
+		if (ray->rangle < 0)
+			ray->rangle += 2 * PI;
+		if (ray->rangle > 2 * PI)
+			ray->rangle -= 2 * PI;
 		ray->count++;
 	}
 }
