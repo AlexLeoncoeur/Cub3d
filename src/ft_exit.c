@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/09 11:13:37 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:45:29 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ void	ft_exit(t_data *data, int status)
 void	ft_errors(t_data *data, int error, char *msg)
 {
 	printf(RED);
-	if (error == ERR_SYS)
+	if (error == ERR_CUST)
+		printf(msg);
+	else if (error == ERR_SYS)
 		printf("Error: System error\n");
 	else if (error == ERR_FD)
 		printf("Error: File descriptor error\n");
@@ -77,6 +79,10 @@ void	ft_errors(t_data *data, int error, char *msg)
 		perror(msg);
 	else if (error == ERR_MLX)
 		printf("MLX Error: %s", mlx_strerror(mlx_errno));
+	else if (error == ERR_ARGC)
+		printf("MLX Error: %s", mlx_strerror(mlx_errno));
+	else if (error == ERR_EXT)
+		printf("Error: Invalid file extension\n");
 	printf(DEFAULT);
 	ft_exit(data, EXIT_FAILURE);
 }

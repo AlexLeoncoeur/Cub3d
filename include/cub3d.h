@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/09 11:26:20 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:52:07 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 # include <stdlib.h>
 
 /*ERROR CODES*/
+# define ERR_CUST		0
 # define ERR_SYS		1
 # define ERR_FD			2
 # define ERR_TEXT		3
 # define ERR_COLOR		4
 # define ERR_MLX		5
+# define ERR_ARGC		6
+# define ERR_EXT		7
 
 typedef struct s_player
 {
@@ -81,7 +84,7 @@ void	move_right(t_game_core *game);
  * @param data 
  * @param file 
  */
-void    ft_init(t_data *data, char *file);
+void	ft_init(t_data *data, char *file);
 
 /* -- ft_main_parser.c -- */
 
@@ -92,6 +95,15 @@ void    ft_init(t_data *data, char *file);
  * @param file 
  */
 void	ft_main_parser(t_data *data, char *file);
+
+/* -- ft_map_check.c -- */
+
+/**
+ * @brief Checks map for invalid characters, player position and walls
+ * 
+ * @param data 
+ */
+void	ft_map_check(t_data *data);
 
 /* -- ft_player_position.c -- */
 
