@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 13:18:48 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:12:51 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_draw_2d(void *param)
 		i++;
 	}
 	ft_draw_player(game, game->img, game->pj->x, game->pj->y);
-	//draw_rays(game);
+	draw_rays(game);
 }
 
 void	ft_map(t_game_core *game)
