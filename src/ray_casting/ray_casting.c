@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 15:26:58 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:32:46 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	ft_get_time(void)
 		exit(1);
 	}
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+static float	ft_distance(t_game_core *game, float end_x, float end_y)
+{
+	return (sqrt((end_x - game->pj->x) * (end_x - game->pj->x) + (end_y - game->pj->y) * (end_y - game->pj->y)));
 }
 
 static void	draw_line(mlx_image_t *image, t_player *pj, t_ray *ray)
@@ -62,11 +67,20 @@ void	draw_rays(t_game_core *game)
 {
 	t_ray	*ray;
 	float	atan;
-	float	ntan; // negative tangent
+	float	ntan;
+	float	dis_h;
+	float	hx;
+	float	hy;
+	float	dis_v;
+	float	vx;
+	float	vy;
 
 	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		exit(1);
+	dis_h = 1000000;
+	hx = ray->rx;
+	hy = ray->ry;
 	ray->rangle = game->pj->pangle;
 	ray->count = 0;
 	while (ray->count < 1)
@@ -100,7 +114,13 @@ void	draw_rays(t_game_core *game)
 			ray->my = (int)ray->ry >> 6;
 			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
 			if (ray->mp > 0 && ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
+			{
+				printf("pipo\n");
+				hx = ray->rx;
+				hy = ray->ry;
+				dis_h = ft_distance(game, hx, hy);
 				ray->dof = 8;
+			}
 			else
 			{
 				ray->rx += ray->xo;
@@ -109,6 +129,9 @@ void	draw_rays(t_game_core *game)
 			}
 		}
 		// -- Vertical lines -- //
+		dis_v = 1000000;
+		vx = ray->rx;
+		vy = ray->ry;
 		ray->dof = 0;
 		ntan = -tan(ray->rangle);
 		if (ray->rangle > PI / 2 && ray->rangle < 3 * PI / 2) //Looking left
@@ -131,13 +154,18 @@ void	draw_rays(t_game_core *game)
 			ray->ry = game->pj->y;
 			ray->dof = 8;
 		}
-		while (ray->mp > 0 && ray->dof < 8 && ray->ry > game->yv_limit && ray->rx > game->xv_limit && ray->ry > 0 && ray->rx > 0) //max of cubes we check
+		while (ray->dof < 8 && ray->ry > game->yv_limit && ray->rx > game->xv_limit && ray->ry > 0 && ray->rx > 0) //max of cubes we check
 		{
 			ray->mx = (int)ray->rx >> 6;
 			ray->my = (int)ray->ry >> 6;
 			ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
-			if (ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
+			if (ray->mp > 0 && ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
+			{
+				vx = ray->rx;
+				vy = ray->ry;
+				dis_v = ft_distance(game, vx, vy);
 				ray->dof = 8;
+			}
 			else
 			{
 				ray->rx += ray->xo;
@@ -145,6 +173,17 @@ void	draw_rays(t_game_core *game)
 				ray->dof++;
 			}
 		}
+		if (dis_v < dis_h)
+		{
+			ray->rx = vx;
+			ray->ry = vy;
+		}
+		else if (dis_v > dis_h)
+		{
+			ray->ry = hy;
+			ray->rx = hx;
+		}
+		printf("dist_h = %f\ndist_v = %f\n", dis_h, dis_v);
 		draw_line(game->img, game->pj, ray);
 		ray->count++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 15:18:25 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:45:30 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_ray
 	int		dof;
 	double	rx;
 	double	ry;
-	double	rangle;
 	double	xo;
 	double	yo;
+	double	rangle;
 }	t_ray;
 
 typedef struct s_player
