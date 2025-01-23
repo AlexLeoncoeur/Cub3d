@@ -17,8 +17,19 @@ static void	ft_check_arround(t_data *data, int i, int j)
 	if (i == 0 || j == 0 || !data->map[i + 1][j] || !data->map[i][j + 1]
 		|| !data->map[i + 1][j + 1])
 		ft_errors(data, ERR_CUST, "Open map, missing walls");
-	if (data->map[i + 1][j] != '1' && data->map[i + 1] != '0'
-		&& data->map[i + 1][j] != ' ') && //aqui falta acabar la condicion
+	if ((data->map[i + 1][j] != '1' && data->map[i + 1][j] != '0'
+		&& data->map[i + 1][j] != 'N' && data->map[i + 1][j] != 'S'
+		&& data->map[i + 1][j] != 'E' && data->map[i + 1][j] != 'W')
+		|| (data->map[i - 1][j] != '1' && data->map[i - 1][j] != '0'
+		&& data->map[i - 1][j] != 'N' && data->map[i - 1][j] != 'S'
+		&& data->map[i - 1][j] != 'E' && data->map[i - 1][j] != 'W')
+		|| (data->map[i][j + 1] != '1' && data->map[i][j + 1] != '0'
+		&& data->map[i][j + 1] != 'N' && data->map[i][j + 1] != 'S'
+		&& data->map[i][j + 1] != 'E' && data->map[i][j + 1] != 'W')
+		|| (data->map[i][j - 1] != '1' && data->map[i][j - 1] != '0'
+		&& data->map[i][j - 1] != 'N' && data->map[i][j - 1] != 'S'
+		&& data->map[i][j - 1] != 'E' && data->map[i][j - 1] != 'W'))
+		ft_errors(data, ERR_CUST, "Map is open");
 }
 
 static void	ft_wall_check(t_data *data)
