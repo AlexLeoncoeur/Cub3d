@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 14:36:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:01:12 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct s_ray
 	double	xo;
 	double	yo;
 	double	rangle;
+	float	dis_h;
+	float	hx;
+	float	hy;
+	float	dis_v;
+	float	vx;
+	float	vy;
 }	t_ray;
 
 typedef struct s_player
@@ -81,10 +87,11 @@ void	move_left(t_game_core *game);
 void	move_right(t_game_core *game);
 
 /* -- ray_casting.c -- */
-int		ft_get_time(void);
 void	draw_rays(t_game_core *game);
 
 /* -- Miscellaneus.c -- */
+int		ft_get_time(void);
+float	ft_distance(t_game_core *game, float end_x, float end_y);
 void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
 
 /* -- Drawing.c -- */

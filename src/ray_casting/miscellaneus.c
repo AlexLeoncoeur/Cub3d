@@ -6,11 +6,29 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:36:27 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 12:40:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:55:31 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+float	ft_distance(t_game_core *game, float end_x, float end_y)
+{
+	return (sqrt((end_x - game->pj->x) * (end_x - game->pj->x)
+			+ (end_y - game->pj->y) * (end_y - game->pj->y)));
+}
+
+int	ft_get_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == 1)
+	{
+		printf("Error: gettimeofday() failed\n");
+		exit(1);
+	}
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
 
 void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img)
 {
