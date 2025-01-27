@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 16:37:54 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 16:47:33 by aarenas-         ###   ########.fr       */
+/*   Created: 2025/01/27 16:55:59 by aarenas-          #+#    #+#             */
+/*   Updated: 2025/01/27 17:09:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 {
-	while (ray->dof < 8 && ray->rx > 0 && ray->ry > 0) //max of cubes we check
+	while (ray->dof < 8 && ray->ry > 0 && ray->rx > 0) //max of cubes we check
 	{
 		ray->mx = (int)ray->rx >> 6;
 		ray->my = (int)ray->ry >> 6;
 		ray->mp = ray->my * 8 + ray->mx; //8 is the x-size of the map
 		if (ray->mp > 0 && ray->mp < 8 * 8 && game->map[ray->mx][ray->my] == 1)
 		{
-			ray->hx = ray->rx;
-			ray->hy = ray->ry;
-			ray->dis_h = ft_distance(game, ray->hx, ray->hy);
+			ray->vx = ray->rx;
+			ray->vy = ray->ry;
+			ray->dis_v = ft_distance(game, ray->vx, ray->vy);
 			ray->dof = 8;
 		}
 		else
@@ -35,9 +35,9 @@ static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 	}
 }
 
-static void	ft_looking_left_right(t_game_core *game, t_ray *ray)
+static void	ft_looking_straight_up_down(t_game_core *game, t_ray *ray)
 {
-	if (ray->rangle == 0 || ray->rangle == PI) //Looking straight left or right
+	if (ray->rangle == 0 || ray->rangle == PI)
 	{
 		ray->rx = game->pj->x;
 		ray->ry = game->pj->y;
@@ -45,30 +45,30 @@ static void	ft_looking_left_right(t_game_core *game, t_ray *ray)
 	}
 }
 
-static void	ft_looking_up_down(t_game_core *game, t_ray *ray)
+static void	ft_looking_left_right(t_game_core *game, t_ray *ray)
 {
-	float	atan;
+	float	ntan;
 
-	atan = -1 / tan(ray->rangle);
-	if (ray->rangle > PI) //Looking down
+	ntan = -tan(ray->rangle);
+	if (ray->rangle > PI / 2 && ray->rangle < 3 * PI / 2) //Looking left
 	{
-		ray->ry = (((int)game->pj->y >> 6) << 6) - 0.0001;
-		ray->rx = (game->pj->y - ray->ry) * atan + game->pj->x;
-		ray->yo = -64;
-		ray->xo = -ray->yo * atan;
+		ray->rx = (((int)game->pj->x >> 6) << 6) - 0.0001;
+		ray->ry = (game->pj->x - ray->rx) * ntan + game->pj->y;
+		ray->xo = -64;
+		ray->yo = -ray->xo * ntan;
 	}
-	if (ray->rangle < PI) //Looking up
+	if (ray->rangle < PI / 2 || ray->rangle > 3 * PI / 2) //Looking right
 	{
-		ray->ry = (((int)game->pj->y >> 6) << 6) + 64;
-		ray->rx = (game->pj->y - ray->ry) * atan + game->pj->x;
-		ray->yo = 64;
-		ray->xo = -ray->yo * atan;
+		ray->rx = (((int)game->pj->x >> 6) << 6) + 64;
+		ray->ry = (game->pj->x - ray->rx) * ntan + game->pj->y;
+		ray->xo = 64;
+		ray->yo = -ray->xo * ntan;
 	}
 }
 
-void	ft_horizontal_lines(t_game_core *game, t_ray *ray)
+void	ft_vertical_lines(t_game_core *game, t_ray *ray)
 {
-	ft_looking_up_down(game, ray);
 	ft_looking_left_right(game, ray);
+	ft_looking_straight_up_down(game, ray);
 	ft_check_cube_hit(game, ray);
 }
