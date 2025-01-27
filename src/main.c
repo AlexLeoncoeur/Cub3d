@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 15:19:23 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:39:42 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,18 +151,7 @@ int	main(void)
 	img = mlx_new_image(id, 1024, 512);
 	mlx_image_to_window(id, img, 0, 0);
 	mlx_resize_hook(id, ft_resize, NULL);
-	pj->x = 256;
-	pj->y = 256;
-	data->pj = pj;
-	data->img = img;
-	data->xh_limit = 1024;
-	data->yh_limit = 512;
-	data->xv_limit = 0;
-	data->yv_limit = 0;
-	data->last_time = ft_get_time();
-	data->delay = 33;
-	data->pj->pangle = 6.28;
-	ft_map(data);
+	ft_init_data_pj(data, pj, img);
 	mlx_loop_hook(id, &ft_draw_2d, data);
 	mlx_key_hook(id, &ft_controls_hook, data);
 	mlx_loop(id);

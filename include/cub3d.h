@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 17:36:12 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:39:33 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,8 @@ void	move_right(t_game_core *game);
 /* -- ray_casting.c -- */
 int		ft_get_time(void);
 void	draw_rays(t_game_core *game);
+
+/* -- Miscellaneus.c -- */
+void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
 
 #endif

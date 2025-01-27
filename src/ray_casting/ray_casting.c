@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 18:01:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:32:20 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	draw_rays(t_game_core *game)
 	dis_h = 1000000;
 	hx = ray->rx;
 	hy = ray->ry;
-	ray->rangle = game->pj->pangle - DR * 45;
+	ray->rangle = game->pj->pangle - (DR / 2 * 90);
 	if (ray->rangle < 0)
 		ray->rangle += 2 * PI;
 	if (ray->rangle > 2 * PI)
