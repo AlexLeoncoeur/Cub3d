@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 16:01:12 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:40:06 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	move_right(t_game_core *game);
 
 /* -- ray_casting.c -- */
 void	draw_rays(t_game_core *game);
+
+/* -- ray_vertical_lines -- */
+void	ft_horizontal_lines(t_game_core *game, t_ray *ray);
 
 /* -- Miscellaneus.c -- */
 int		ft_get_time(void);
