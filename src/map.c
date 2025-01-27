@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/21 14:12:51 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:37:17 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ void	ft_draw_2d(void *param)
 			if (game->map[i][j] == 1)
 				ft_draw_square(game, i * 64, j * 64, get_rgba(0, 0, 0, 255));
 			else if (game->map[i][j] == 0)
-				ft_draw_square(game, i * 64, j * 64, get_rgba(255, 255, 255, 255));
+				ft_draw_square(game, i * 64, j * 64,
+					get_rgba(255, 255, 255, 255));
 			j++;
 		}
 		i++;
 	}
-	ft_draw_player(game, game->img, game->pj->x, game->pj->y);
+	ft_draw_player(game, game->img);
 	draw_rays(game);
 }
 
@@ -78,7 +79,8 @@ void	ft_map(t_game_core *game)
 				game->map[i][j] = 1;
 			else if (j == 0 || j == 7)
 				game->map[i][j] = 1;
-			else if ((i == 2 && j == 1) || (i == 2 && j == 2) || (i == 2 && j == 3) || (i == 5 && j == 5))
+			else if ((i == 2 && j == 1) || (i == 2 && j == 2)
+				|| (i == 2 && j == 3) || (i == 5 && j == 5))
 				game->map[i][j] = 1;
 			else
 				game->map[i][j] = 0;

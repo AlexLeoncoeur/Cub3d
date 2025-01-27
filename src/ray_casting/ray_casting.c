@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 12:32:20 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:35:02 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,8 @@ int	ft_get_time(void)
 
 static float	ft_distance(t_game_core *game, float end_x, float end_y)
 {
-	return (sqrt((end_x - game->pj->x) * (end_x - game->pj->x) + (end_y - game->pj->y) * (end_y - game->pj->y)));
-}
-
-static void	draw_line(mlx_image_t *image, t_player *pj, t_ray *ray)
-{
-	float	dx;
-	float	dy;
-	float	steps;
-	float	increment_x;
-	float	increment_y;
-	float	x;
-	float	y;
-	int		i;
-
-	i = 0;
-	x = pj->x;
-	y = pj->y;
-	dx = fabs(ray->rx - x);
-	dy = fabs(ray->ry - y);
-	steps = fmax(dx, dy);
-	increment_x = dx / steps; //increments each axis to know which points to draw
-	increment_y = dy / steps;
-	while (i < steps) //to draw the points between the start (p1) and end (p2) point
-	{
-		mlx_put_pixel(image, x, y, get_rgba(165, 51, 255, 255));
-		if (ray->rx < pj->x)
-			x -= increment_x;
-		else
-			x += increment_x;
-		if (ray->ry < pj->y)
-			y -= increment_y;
-		else
-			y += increment_y;
-		i++;
-	}
+	return (sqrt((end_x - game->pj->x) * (end_x - game->pj->x)
+			+ (end_y - game->pj->y) * (end_y - game->pj->y)));
 }
 
 void	draw_rays(t_game_core *game)
@@ -186,7 +153,7 @@ void	draw_rays(t_game_core *game)
 			ray->ry = hy;
 			ray->rx = hx;
 		}
-		draw_line(game->img, game->pj, ray);
+		draw_ray_line(game->img, game->pj, ray, -1);
 		ray->rangle += DR;
 		if (ray->rangle < 0)
 			ray->rangle += 2 * PI;

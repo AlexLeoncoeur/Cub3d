@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 12:39:33 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:36:04 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_player
 	double			pdx;
 	double			pdy;
 	double			pangle;
+	double			pic_x;
+	double			pic_y;
 }	t_player;
 
 typedef struct s_game_core
@@ -63,7 +65,7 @@ typedef struct s_game_core
 }	t_game_core;
 
 /* -- main.c -- */
-void	ft_draw_player(t_game_core *game, mlx_image_t *img, int pj_x, int pj_y);
+void	ft_draw_player(t_game_core *game, mlx_image_t *img);
 void	ft_resize(int width, int height, void *param);
 
 /* -- map.c -- */
@@ -84,5 +86,9 @@ void	draw_rays(t_game_core *game);
 
 /* -- Miscellaneus.c -- */
 void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
+
+/* -- Drawing.c -- */
+void	draw_pj(mlx_image_t *image, t_player *pj, int i);
+void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i);
 
 #endif
