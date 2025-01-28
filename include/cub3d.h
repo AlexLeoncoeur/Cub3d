@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/28 15:06:15 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:41:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_wall
 	double	y;
 	float	lineheight;
 	int		thick;
+	int		screen_offset;
 }	t_wall;
 
 typedef struct s_ray

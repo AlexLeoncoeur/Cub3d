@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 14:37:17 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:59:35 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+static void	ft_refresh_half_screen(t_game_core *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 512)
+	{
+		j = 511;
+		while (j < 1024)
+		{
+			mlx_put_pixel(game->img, j, i, 0);
+			j++;
+		}
+		i++;
+	}
 }
 
 static void	ft_draw_square(t_game_core *game, int x, int y, int color)
@@ -60,6 +78,7 @@ void	ft_draw_2d(void *param)
 		}
 		i++;
 	}
+	ft_refresh_half_screen(game);
 	ft_draw_player(game, game->img);
 	draw_rays(game);
 }

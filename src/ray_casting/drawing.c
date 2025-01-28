@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/28 15:56:36 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:15:09 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	increment_y = dy / steps;
 	while (++i < steps && wall->y < 512) //to draw the points between the start (p1) and end (p2) point
 	{
-		mlx_put_pixel(image, wall->x, wall->y, get_rgba(51, 255, 54, 255));
+		mlx_put_pixel(image, wall->x + wall->screen_offset, wall->y, get_rgba(51, 255, 54, 255));
 		if (ray->rx < wall->x)
 			wall->x -= increment_x;
 		else
@@ -51,6 +51,7 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall->lineheight = (64 * 320) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
 	if (wall->lineheight > 320)
 		wall->lineheight = 320;
+	wall->screen_offset = (ray->count * 4 + 530) / 2;
 	draw_wall_lines(game->img, ray, wall, -1);
 }
 
