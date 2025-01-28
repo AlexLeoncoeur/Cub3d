@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 17:08:14 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:41:25 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_ray
 	float	dis_v;
 	float	vx;
 	float	vy;
+	float	total_dis;
 }	t_ray;
 
 typedef struct s_player
@@ -101,6 +102,7 @@ float	ft_distance(t_game_core *game, float end_x, float end_y);
 void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
 
 /* -- Drawing.c -- */
+void	ft_manage_3d_walls(t_game_core *game, t_ray *ray);
 void	draw_pj(mlx_image_t *image, t_player *pj, int i);
 void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i);
 
