@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/28 13:41:25 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:06:15 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 
 # define PI 3.14159265359
 # define DR 0.0174533
+
+typedef struct s_wall
+{
+	double	x;
+	double	y;
+	float	lineheight;
+	int		thick;
+}	t_wall;
 
 typedef struct s_ray
 {

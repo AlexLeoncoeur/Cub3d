@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/28 13:38:27 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:22:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_rays(t_game_core *game)
 		ft_vertical_lines(game, ray);
 		ft_shortest_ray(ray);
 		draw_ray_line(game->img, game->pj, ray, -1);
-		ft_manage_3d_walls(ray);
+		ft_manage_3d_walls(game, ray);
 		ft_next_ray_dir(ray);
 		ray->count++;
 	}
