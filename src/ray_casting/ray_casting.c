@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/28 15:22:32 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:51:26 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_restart_angle(t_ray *ray)
 
 static void	ft_next_ray_dir(t_ray *ray)
 {
-	ray->rangle += DR / 2;
+	ray->rangle += DR / 4;
 	if (ray->rangle < 0)
 		ray->rangle += 2 * PI;
 	if (ray->rangle > 2 * PI)
@@ -54,10 +54,10 @@ void	draw_rays(t_game_core *game)
 		exit(1);
 	ray->hx = ray->rx;
 	ray->hy = ray->ry;
-	ray->rangle = game->pj->pangle - (DR * 45);
+	ray->rangle = game->pj->pangle - (DR * 30);
 	ft_restart_angle(ray);
 	ray->count = 0;
-	while (ray->count < 180)
+	while (ray->count < 240)
 	{
 		ray->dof = 0;
 		ray->dis_h = 1000000;
