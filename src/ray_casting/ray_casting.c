@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/29 15:51:26 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:26:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void	draw_rays(t_game_core *game)
 		ft_next_ray_dir(ray);
 		ray->count++;
 	}
+		//funcion para borrar ray
 }

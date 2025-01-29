@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/29 15:51:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:26:54 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall)
 
 	i = -1;
 	while (++i < wall->thick)
-		mlx_put_pixel(image, wall->x + wall->screen_offset + i, wall->y, get_rgba(51, 255, 54, 255));
+	{
+		mlx_put_pixel(image, wall->x + wall->x_offset + i, wall->y + wall->y_offset, get_rgba(51, 255, 54, 255));
+	}
 }
 
 static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
@@ -30,13 +32,13 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	float	increment_y;
 
 	wall->x = ray->rx;
-	wall->y = ray->ry;
+	wall->y = 0;
 	dx = fabs(ray->rx - wall->x);
-	dy = fabs((ray->ry - wall->lineheight) - wall->y);
+	dy = fabs((wall->lineheight) - wall->y);
 	steps = fmax(dx, dy);
 	increment_x = dx / steps; //increments each axis to know which points to draw
 	increment_y = dy / steps;
-	while (++i < steps && wall->y < 512 && wall->y > 0 && wall->x + wall->screen_offset < 1024 && wall->x + wall->screen_offset > 512) //to draw the points between the start (p1) and end (p2) point
+	while (++i < steps && wall->y < 512 && wall->y >= 0 && wall->x + wall->x_offset < 1024 && wall->x + wall->x_offset > 512) //to draw the points between the start (p1) and end (p2) point
 	{
 		wall->thick = 4;
 		ft_wall_thickness(image, wall);
@@ -44,7 +46,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 			wall->x -= increment_x;
 		else
 			wall->x += increment_x;
-		if (ray->ry - wall->lineheight < wall->y)
+		if (wall->lineheight < wall->y)
 			wall->y -= increment_y;
 		else
 			wall->y += increment_y;
@@ -58,10 +60,11 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall = malloc(sizeof(t_wall));
 	if (!wall)
 		exit(EXIT_FAILURE);
-	wall->lineheight = (64 * 320) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
-	if (wall->lineheight > 320)
-		wall->lineheight = 320;
-	wall->screen_offset = (ray->rx - 512) * -1 + (ray->count * 4);//(ray->count * 8 + 530) / 2;
+	wall->lineheight = (64 * 512) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
+	if (wall->lineheight > 512)
+		wall->lineheight = 512;
+	wall->x_offset = (ray->rx - 512) * -1 + (ray->count * 2);//(ray->count * 4 + 530) / 2;
+	wall->y_offset = 256 - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, -1);
 }
 
