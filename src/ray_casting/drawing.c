@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/28 17:15:09 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:13:34 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	wall->x = ray->rx;
 	wall->y = ray->ry;
 	dx = fabs(ray->rx - wall->x);
-	dy = fabs((ray->ry + wall->lineheight) - wall->y);
+	dy = fabs((ray->ry - wall->lineheight) - wall->y);
 	steps = fmax(dx, dy);
 	increment_x = dx / steps; //increments each axis to know which points to draw
 	increment_y = dy / steps;
-	while (++i < steps && wall->y < 512) //to draw the points between the start (p1) and end (p2) point
+	while (++i < steps && wall->y < 512 && wall->y > 0 && wall->x + wall->screen_offset < 1024 && wall->x + wall->screen_offset > 512) //to draw the points between the start (p1) and end (p2) point
 	{
 		mlx_put_pixel(image, wall->x + wall->screen_offset, wall->y, get_rgba(51, 255, 54, 255));
 		if (ray->rx < wall->x)
 			wall->x -= increment_x;
 		else
 			wall->x += increment_x;
-		if (ray->ry + wall->lineheight < wall->y)
+		if (ray->ry - wall->lineheight < wall->y)
 			wall->y -= increment_y;
 		else
 			wall->y += increment_y;
@@ -51,7 +51,7 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall->lineheight = (64 * 320) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
 	if (wall->lineheight > 320)
 		wall->lineheight = 320;
-	wall->screen_offset = (ray->count * 4 + 530) / 2;
+	wall->screen_offset = (ray->count * 8 + 530) / 2;
 	draw_wall_lines(game->img, ray, wall, -1);
 }
 
@@ -72,6 +72,7 @@ void	draw_pj(mlx_image_t *image, t_player *pj, int i)
 	double	increment_x;
 	double	increment_y;
 
+	printf("x: %f y: %f\n", pj->x, pj->y);
 	pj->pic_x = pj->x;
 	pj->pic_y = pj->y;
 	dx = fabs(pj->pdx * 5);
