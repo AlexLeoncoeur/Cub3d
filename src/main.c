@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
+/*   Updated: 2025/01/30 13:40:08 by aarenas-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
@@ -79,30 +89,28 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
-	mlx_t			*id;
+	t_data			data;
 	mlx_image_t		*img;
-	t_game_core		*data;
+	t_game_core		*game;
 	t_player		*pj;
 
-  (void)argc;
+	(void)argc;
 	ft_init(&data, argv[1]);
 	if (argc != 2)
 		ft_errors(&data, ERR_ARGC, NULL);
 	if (ft_check_cub(argv[1]) != 1)
 		ft_errors(&data, ERR_EXT, NULL);
-	id = mlx_init(1024, 512, "cub3d", true);
-	data = malloc(sizeof(t_game_core));
+	game = malloc(sizeof(t_game_core));
+	game->id = data.mlx;
 	pj = malloc(sizeof(t_player));
-	if (!id || !data || !pj)
+	if (!game->id || !game || !pj)
 		exit(EXIT_FAILURE);
-	img = mlx_new_image(id, 1024, 512);
-	mlx_image_to_window(id, img, 0, 0);
-	mlx_resize_hook(id, ft_resize, NULL);
-	ft_init_data_pj(data, pj, img);
-	mlx_loop_hook(id, &ft_draw_2d, data);
-	mlx_key_hook(id, &ft_controls_hook, data);
-	mlx_loop(id);
-	mlx_terminate(id);
+	img = data.img;
+	mlx_resize_hook(game->id, ft_resize, NULL);
+	ft_init_data_pj(game, pj, img);
+	mlx_loop_hook(game->id, &ft_draw_2d, game);
+	mlx_key_hook(game->id, &ft_controls_hook, game);
+	mlx_loop(game->id);
+	mlx_terminate(game->id);
 	return (0);
 }
