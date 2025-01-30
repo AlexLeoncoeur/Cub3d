@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/30 13:55:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:01:14 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,14 @@ void	ft_main_parser(t_data *data, char *file)
 	}
 	i = 0;
 	map[i] = parse_textures(data, fd);
-	while (map[i] && map[i][0] == '\n')
+	while (map[i] && map[i][0] != '\n')
 	{
-		free(map[i]);
+		i++;
 		map[i] = get_next_line(fd);
 	}
 	if (map[i] && map[i][0] == '\n')
 		free(map[i]);
 	map[i] = 0;
+	data->map = map;
 	ft_player_coords(data, map);
 }
