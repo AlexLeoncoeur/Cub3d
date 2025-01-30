@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 13:35:18 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:01:14 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,15 @@ void	ft_main_parser(t_data *data, char *file);
  */
 void	ft_map_check(t_data *data);
 
+/* -- ft_texture_check.c -- */
+
+/**
+ * @brief Checks if textures are correct
+ * 
+ * @param data 
+ */
+void    ft_texture_check(t_data *data);
+
 /* -- ft_player_position.c -- */
 
 /**
@@ -172,7 +181,7 @@ void	ft_map_check(t_data *data);
  * @param map 
  * @param data 
  */
-void	ft_player_coords(t_data *data, char **map);
+void		ft_player_coords(t_data *data, char **map);
 
 /* -- ft_exit.c -- */
 

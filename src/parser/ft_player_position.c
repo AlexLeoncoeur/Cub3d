@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:14:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/09 11:25:39 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:01:03 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ void	ft_player_coords(t_data *data, char **map)
 			{
 				coords[0] = i;
 				coords[1] = j;
-				data->player->x = coords[0];
-				data->player->y = coords[1];
-				return (coords);
+				data->player->start_x = coords[0];
+				data->player->start_y = coords[1];
 			}
 			j++;
 		}
 	}
-	return (NULL);
 }

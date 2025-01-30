@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/21 11:20:43 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:51:37 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static void	ft_init_mlx(t_data *data)
 		ft_errors(data, ERR_MLX, NULL);
 	data->img = mlx_new_image(data->mlx, data->width, data->height);
 	if (!data->img)
-		ft_error(data, ERR_MLX, NULL);
+		ft_errors(data, ERR_MLX, NULL);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
-		ft_error(data, ERR_MLX, NULL);
+		ft_errors(data, ERR_MLX, NULL);
 }
 
 static char	*ft_clean_textures(char *texture)
@@ -62,5 +62,6 @@ void	ft_init(t_data *data, char *file)
 	data->text_paths.north = ft_clean_textures(data->text_paths.north);
 	data->text_paths.south = ft_clean_textures(data->text_paths.south);
 	data->text_paths.west = ft_clean_textures(data->text_paths.west);
-	ft_parser_check(data);
+	ft_map_check(data);
+	ft_texture_check(data);
 }

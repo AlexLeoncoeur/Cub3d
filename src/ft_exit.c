@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/21 11:45:29 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:03:31 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static void	ft_clean(t_data *data)
 	if (!data->mlx)
 		return ;
 	if (data->n_wall)
-		mlx_destroy_texture(data->mlx, data->n_wall);
+		mlx_delete_texture(data->n_wall);
 	if (data->s_wall)
-		mlx_destroy_texture(data->mlx, data->s_wall);
+		mlx_delete_texture(data->s_wall);
 	if (data->e_wall)
-		mlx_destroy_texture(data->mlx, data->e_wall);
+		mlx_delete_texture(data->e_wall);
 	if (data->w_wall)
-		mlx_destroy_texture(data->mlx, data->w_wall);
+		mlx_delete_texture(data->w_wall);
 	if (data->text_paths.east)
 		free(data->text_paths.east);
 	if (data->text_paths.north)
@@ -68,7 +68,7 @@ void	ft_errors(t_data *data, int error, char *msg)
 {
 	printf(RED);
 	if (error == ERR_CUST)
-		printf(msg);
+		printf("%s\n", msg);
 	else if (error == ERR_SYS)
 		printf("Error: System error\n");
 	else if (error == ERR_FD)

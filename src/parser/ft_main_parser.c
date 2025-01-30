@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/09 11:26:42 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:55:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	set_colors(t_data *data, char **aux)
 	}
 	i = -1;
 	while (++i < 3)
-		rgb[i] = ft_atoi(rgb[i]);
+		col[i] = ft_atoi(rgb[i]);
 	if (aux[0][0] == 'F')
 		data->floor = col[0] << 24 | col[1] << 16 | col[2] << 8 | 0x000000FF;
 	else
@@ -57,13 +57,13 @@ static void	save_textures(t_data *data, char *line)
 	if (len <= 1 && aux[0][0] != '\n')
 		ft_errors(data, ERR_TEXT, "Error: no texture");
 	if (!ft_strncmp(line, "NO ", 3))
-		data->n_wall = ft_strdup(aux[1]);
+		data->text_paths.north = ft_strdup(aux[1]);
 	else if (!ft_strncmp(line, "SO ", 3))
-		data->s_wall = ft_strdup(aux[1]);
+		data->text_paths.south = ft_strdup(aux[1]);
 	else if (!ft_strncmp(line, "WE ", 3))
-		data->e_wall = ft_strdup(aux[1]);
+		data->text_paths.west = ft_strdup(aux[1]);
 	else if (!ft_strncmp(line, "EA ", 3))
-		data->w_wall = ft_strdup(aux[1]);
+		data->text_paths.east = ft_strdup(aux[1]);
 	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 		set_colors(data, aux);
 	ft_clean_array(aux);
@@ -80,17 +80,17 @@ static char	*parse_textures(t_data *data, int fd)
 		|| !ft_strncmp(line, "\n", 1))
 	{
 		if (!ft_strncmp(line, "NO ", 3) && data->text_paths.north)
-			ft_error(data, ERR_TEXT, "Error: north wall texture");
+			ft_errors(data, ERR_TEXT, "Error: north wall texture");
 		if (!ft_strncmp(line, "SO ", 3) && data->text_paths.south)
-			ft_error(data, ERR_TEXT, "Error: south wall texture");
+			ft_errors(data, ERR_TEXT, "Error: south wall texture");
 		if (!ft_strncmp(line, "WE ", 3) && data->text_paths.west)
-			ft_error(data, ERR_TEXT, "Error: west wall texture");
+			ft_errors(data, ERR_TEXT, "Error: west wall texture");
 		if (!ft_strncmp(line, "EA ", 3) && data->text_paths.east)
-			ft_error(data, ERR_TEXT, "Error: east wall texture");
+			ft_errors(data, ERR_TEXT, "Error: east wall texture");
 		if (!ft_strncmp(line, "F ", 2) && data->floor)
-			ft_error(data, ERR_TEXT, "Error: floor color");
+			ft_errors(data, ERR_TEXT, "Error: floor color");
 		if (!ft_strncmp(line, "C ", 2) && data->sky)
-			ft_error(data, ERR_TEXT, "Error: sky color");
+			ft_errors(data, ERR_TEXT, "Error: sky color");
 		save_textures(data, line);
 		free(line);
 		line = get_next_line(fd);
