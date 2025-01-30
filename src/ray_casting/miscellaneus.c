@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:36:27 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 14:55:31 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:27:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,17 @@ int	ft_get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img)
+void	ft_init_data_pj(t_game_core *game, t_player *pj, mlx_image_t *img)
 {
-	pj->x = 256;
-	pj->y = 256;
-	data->pj = pj;
-	data->img = img;
-	data->xh_limit = 1024;
-	data->yh_limit = 512;
-	data->xv_limit = 0;
-	data->yv_limit = 0;
-	data->last_time = ft_get_time();
-	data->delay = 33;
-	data->pj->pangle = 6.28;
-	ft_map(data);
+	pj->x = game->data->player->start_x * 8;
+	pj->y = game->data->player->start_y * 8;
+	game->pj = pj;
+	game->img = img;
+	game->xh_limit = game->data->width;
+	game->yh_limit = game->data->width;
+	game->xv_limit = 0;
+	game->yv_limit = 0;
+	game->last_time = ft_get_time();
+	game->delay = 33;
+	game->pj->pangle = 6.28;
 }

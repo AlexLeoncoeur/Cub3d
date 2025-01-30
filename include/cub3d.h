@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 14:01:14 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:20:18 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,6 @@ typedef struct s_player
 	double			pic_y;
 }	t_player;
 
-typedef struct s_game_core
-{
-	mlx_t			*id;
-	mlx_image_t		*img;
-	t_player		*pj;
-	int				xh_limit;
-	int				yh_limit;
-	int				xv_limit;
-	int				yv_limit;
-	int				last_time;
-	int				current_time;
-	int				delay;
-	int				map[8][8];
-}	t_game_core;
-
 typedef struct s_paths
 {
 	char	*north;
@@ -118,6 +103,21 @@ typedef struct s_data
 	mlx_texture_t	*w_wall;
 	t_paths			text_paths;
 }	t_data;
+
+typedef struct s_game_core
+{
+	mlx_t			*id;
+	mlx_image_t		*img;
+	t_player		*pj;
+	t_data			*data;
+	int				xh_limit;
+	int				yh_limit;
+	int				xv_limit;
+	int				yv_limit;
+	int				last_time;
+	int				current_time;
+	int				delay;
+}	t_game_core;
 
 /* -- main.c -- */
 void	ft_draw_player(t_game_core *game, mlx_image_t *img);

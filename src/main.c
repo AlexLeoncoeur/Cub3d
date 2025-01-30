@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 13:40:08 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:31:30 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 	j = game->pj->y;
 	image = img;
 	draw_pj(game->img, game->pj, -1);
-	i = -8;
-	while (i < 8)
+	i = -4;
+	while (i < 4)
 	{
-		j = -8;
-		while (j < 8)
+		j = -4;
+		while (j < 4)
 		{
 			mlx_put_pixel(image, game->pj->x + i, game->pj->y + j,
 				get_rgba(51, 255, 246, 255));
@@ -101,10 +101,11 @@ int	main(int argc, char **argv)
 	if (ft_check_cub(argv[1]) != 1)
 		ft_errors(&data, ERR_EXT, NULL);
 	game = malloc(sizeof(t_game_core));
-	game->id = data.mlx;
 	pj = malloc(sizeof(t_player));
-	if (!game->id || !game || !pj)
+	if (!game || !pj)
 		exit(EXIT_FAILURE);
+	game->id = data.mlx;
+	game->data = &data;
 	img = data.img;
 	mlx_resize_hook(game->id, ft_resize, NULL);
 	ft_init_data_pj(game, pj, img);
