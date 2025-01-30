@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 15:31:30 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:31:35 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 {
 	int			i;
 	int			j;
-	int			z;
+	//int			z;
 	mlx_image_t	*image;
 
-	z = game->pj->pdx;
+	//z = game->pj->pdx;
 	i = game->pj->x;
 	j = game->pj->y;
 	image = img;
