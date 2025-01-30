@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 12:35:55 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/29 16:13:28 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:13:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <math.h>
+
+/*ERROR CODES*/
+# define ERR_CUST		0
+# define ERR_SYS		1
+# define ERR_FD			2
+# define ERR_TEXT		3
+# define ERR_COLOR		4
+# define ERR_MLX		5
+# define ERR_ARGC		6
+# define ERR_EXT		7
 
 # define PI 3.14159265359
 # define DR 0.0174533
@@ -57,6 +67,8 @@ typedef struct s_ray
 typedef struct s_player
 {
 	mlx_image_t		*img;
+	int				start_x;
+	int				start_y;
 	double			x;
 	double			y;
 	double			pdx;
@@ -80,6 +92,31 @@ typedef struct s_game_core
 	int				delay;
 	int				map[8][8];
 }	t_game_core;
+
+typedef struct s_paths
+{
+	char	*north;
+	char	*south;
+	char	*east;
+	char	*west;
+}	t_paths;
+
+typedef struct s_data
+{
+	char			**map;
+	t_player		*player;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	int32_t			width;
+	int32_t			height;
+	uint32_t		sky;
+	uint32_t		floor;
+	mlx_texture_t	*n_wall;
+	mlx_texture_t	*s_wall;
+	mlx_texture_t	*e_wall;
+	mlx_texture_t	*w_wall;
+	t_paths			text_paths;
+}	t_data;
 
 /* -- main.c -- */
 void	ft_draw_player(t_game_core *game, mlx_image_t *img);

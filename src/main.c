@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/27 14:21:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:06:59 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,19 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	mlx_t			*id;
 	mlx_image_t		*img;
 	t_game_core		*data;
 	t_player		*pj;
 
+	(void)argc;
+	ft_init(&data, argv[1]);
+	if (argc != 2)
+		ft_errors(&data, ERR_ARGC, NULL);
+	if (ft_check_cub(argv[1]) != 1)
+		ft_errors(&data, ERR_EXT, NULL);
 	id = mlx_init(1024, 512, "cub3d", true);
 	data = malloc(sizeof(t_game_core));
 	pj = malloc(sizeof(t_player));
