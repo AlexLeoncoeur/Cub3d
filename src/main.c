@@ -1,18 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/09 15:56:25 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 13:06:59 by aarenas-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "../include/cub3d.h"
 
-//Algoritmo de Bresenham
+static int	ft_check_cub(char *name)
+{
+	char	*aux;
+
+	aux = name;
+	while (*aux)
+		aux++;
+	while (name < aux)
+	{
+		if (*aux == '.')
+			if (*aux + 1 && *aux + 2 && *aux + 3)
+				if (aux[1] == 'c' && aux[2] == 'u' && aux[3] == 'b' && !aux[4])
+					return (1);
+		aux--;
+	}
+	return (0);
+}
+
 void	ft_controls_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game_core	*game;
@@ -72,12 +79,13 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 
 int	main(int argc, char **argv)
 {
+	t_data	data;
 	mlx_t			*id;
 	mlx_image_t		*img;
 	t_game_core		*data;
 	t_player		*pj;
 
-	(void)argc;
+  (void)argc;
 	ft_init(&data, argv[1]);
 	if (argc != 2)
 		ft_errors(&data, ERR_ARGC, NULL);
