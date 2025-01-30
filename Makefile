@@ -59,7 +59,7 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 CC = clang
 NAME = cub3d
 CFLAGS = -Wall -Werror -Wextra
-MLX42 = ./include/MLX42/build/libmlx42.a
+MLX42 = /include/MLX42/build/libmlx42.a
 
 all: libft $(NAME)
 $(NAME): compiling $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) $(MLX42)
