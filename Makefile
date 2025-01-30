@@ -13,24 +13,25 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = \
+CFILES = main.c map.c\
 
 PARSER_FILES = 
 
-EXECUTER_CFILES = executer.c executer_utils.c last_cmd.c
+RAY_CASTING_CFILES = movement.c ray_casting.c miscellaneus.c drawing.c ray_vertical_lines.c \
+ray_horizontal_lines.c
 
 # DIRECTORIES 
 SRC_DIR = src/
 PARSER_DIR = src/parser/
 BUILT_IN_SRC_DIR = src/built_ins/
-EXECUTER_SRC_DIR = src/executer/
+RAY_CASTING_SRC_DIR = src/ray_casting/
 OBJ_DIR = objs/
 
 # OBJECTS
 OFILES = $(addprefix $(OBJ_DIR), $(CFILES:.c=.o))
 PARSER_OFILES = $(addprefix $(OBJ_DIR)parser/, $(PARSER_FILES:.c=.o))
 BUILT_IN_OFILES = $(addprefix $(OBJ_DIR)built_ins/, $(BUILT_IN_CFILES:.c=.o))
-EXECUTER_OFILES = $(addprefix $(OBJ_DIR)executer/, $(EXECUTER_CFILES:.c=.o))
+RAY_CASTING_OFILES = $(addprefix $(OBJ_DIR)ray_casting/, $(RAY_CASTING_CFILES:.c=.o))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)
@@ -42,9 +43,9 @@ $(OBJ_DIR)parser/%.o: $(PARSER_DIR)%.c
 	@ echo "$(BLUE)-Compiling File: $(CYAN)parser/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
-$(OBJ_DIR)executer/%.o: $(EXECUTER_SRC_DIR)%.c
-	@ mkdir -p $(OBJ_DIR)/executer/
-	@ echo "$(BLUE)-Compiling File: $(CYAN)executer/$(RESET)$(notdir $<)"
+$(OBJ_DIR)ray_casting/%.o: $(RAY_CASTING_SRC_DIR)%.c
+	@ mkdir -p $(OBJ_DIR)/ray_casting/
+	@ echo "$(BLUE)-Compiling File: $(CYAN)ray_casting/$(RESET)$(notdir $<)"
 	@ $(CC) $(CFLAGS) -c $< -o $@ -g
 
 $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
@@ -58,20 +59,25 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 CC = clang
 NAME = cub3d
 CFLAGS = -Wall -Werror -Wextra
+MLX42 = ./include/MLX42/build/libmlx42.a
 
 all: libft $(NAME)
-$(NAME): compiling $(PARSER_OFILES) $(EXECUTER_OFILES) $(BUILT_IN_OFILES) $(OFILES)
+$(NAME): compiling $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) $(MLX42)
 	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(EXECUTER_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME)
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a $(MLX42) -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
 	@ echo "$(YELLOW)COMPILATION FINISHED!$(RESET)"
 
 debug: all
 	@ echo
-	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(EXECUTER_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a -lreadline -o $(NAME) -g -fsanitize=address
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a $(MLX42) -Iinclude -ldl -lglfw -pthread -lm -o $(NAME) -g -fsanitize=address
 	@ echo "$(RED)DEBUG MODE ACTIVATED!$(RESET)"
 
 libft:
 	@ make --silent -C include/libft/ bonus
+
+$(MLX42):
+	@ make -C ./include/MLX42/build
+	@ make -C ./include/MLX42/build -j4
 
 bonus: all $(BONUS_NAME)
 $(BONUS_NAME): $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
@@ -81,8 +87,9 @@ $(BONUS_NAME): $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
 
 clean:
 	@ echo "$(RED)CLEANING PROJECT ... $(RESET)"
-	@ rm -f $(OFILES) $(ORDER_OFILES) $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
+	@ rm -rf $(OBJ_DIR)
 	@ make --silent -C "include/libft/" fclean
+	@ make --silent -C "include/MLX42/build/" clean
 	@ echo "$(YELLOW)PROJECT CLEANED!\n $(RESET)"
 
 fclean: clean
@@ -96,4 +103,4 @@ rebug: re debug
 compiling:
 	@ echo "$(MAGENTA)COMPILING PROJECT: $(RESET)"
 
-.PHONY: all clean fclean re bonus compiling debug rebug
+.PHONY: all clean fclean re bonus compiling libft MLX42 debug rebug
