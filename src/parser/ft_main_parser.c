@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/30 15:01:14 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:02:05 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static void	save_textures(t_data *data, char *line)
 	if (len <= 1 && aux[0][0] != '\n')
 		ft_errors(data, ERR_TEXT, "Error: no texture");
 	if (!ft_strncmp(line, "NO ", 3))
-		data->text_paths.north = ft_strdup(aux[1]);
+		data->text_paths.north = ft_strdup(ft_strtrim(aux[1], "\n"));
 	else if (!ft_strncmp(line, "SO ", 3))
-		data->text_paths.south = ft_strdup(aux[1]);
+		data->text_paths.south = ft_strdup(ft_strtrim(aux[1], "\n"));
 	else if (!ft_strncmp(line, "WE ", 3))
-		data->text_paths.west = ft_strdup(aux[1]);
+		data->text_paths.west = ft_strdup(ft_strtrim(aux[1], "\n"));
 	else if (!ft_strncmp(line, "EA ", 3))
-		data->text_paths.east = ft_strdup(aux[1]);
+		data->text_paths.east = ft_strdup(ft_strtrim(aux[1], "\n"));
 	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 		set_colors(data, aux);
 	ft_clean_array(aux);
