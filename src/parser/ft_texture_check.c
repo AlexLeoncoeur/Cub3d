@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/23 14:27:15 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:56:28 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void    ft_texture_check(t_data *data)
     int    fd;
 
     if (!data->text_paths.east || !data->text_paths.north
-        || data->text_paths.south || data->text_paths.west)
+        || !data->text_paths.south || !data->text_paths.west)
         ft_errors(data, ERR_CUST, "Textures are not at the start of the file");
     fd = open(data->text_paths.east, O_RDONLY);
     if (fd < 0)

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/21 13:17:15 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:55:42 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_map_check(t_data *data)
 	count += ft_count_chars(data->map, 'W');
 	if (count != 1)
 		ft_errors(data, ERR_CUST, "Invalid, duplicated or non existent player");
-	if (data->player->x == 0 || data->player->y == 0)
+	if (data->player->start_x == 0 || data->player->start_y == 0)
 		ft_errors(data, ERR_CUST, "Invalid player position");
 	ft_wall_check(data);
 }
