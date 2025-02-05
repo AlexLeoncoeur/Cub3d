@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/04 13:02:05 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:17:46 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,7 @@ void	ft_main_parser(t_data *data, char *file)
 	map = malloc(sizeof(char *) * (i + 1));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-	{
 		ft_errors(data, ERR_FD, NULL);
-	}
 	i = 0;
 	map[i] = parse_textures(data, fd);
 	while (map[i] && map[i][0] != '\n')

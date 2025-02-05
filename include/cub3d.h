@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 15:20:18 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:38:04 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_data
 	mlx_image_t		*img;
 	int32_t			width;
 	int32_t			height;
+	int				map_rows;
+	int				map_longest_col;
 	uint32_t		sky;
 	uint32_t		floor;
 	mlx_texture_t	*n_wall;
