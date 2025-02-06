@@ -98,7 +98,7 @@ fclean: clean
 re: fclean all
 
 rebug: re debug
-	@ ./cub3d
+	@ ./cub3d maps/map_2.cub
 
 compiling:
 	@ echo "$(MAGENTA)COMPILING PROJECT: $(RESET)"

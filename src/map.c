@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 15:29:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:56:06 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	ft_refresh_half_screen(t_game_core *game)
 	int	j;
 
 	i = 0;
-	while (i < 512)
+	while (i < 720)
 	{
-		j = 511;
-		while (j < 1024)
+		j = 0;
+		while (j < 1280)
 		{
 			mlx_put_pixel(game->img, j, i, 0);
 			j++;
@@ -65,8 +65,6 @@ void	ft_draw_2d(void *param)
 	i = 0;
 	game = (t_game_core *)param;
 	ft_refresh_half_screen(game);
-	ft_draw_player(game, game->img);
-	draw_rays(game);
 	while (i != '\0')
 	{
 		j = 0;
@@ -81,4 +79,6 @@ void	ft_draw_2d(void *param)
 		}
 		i++;
 	}
+	ft_draw_player(game, game->img);
+	draw_rays(game);
 }

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 15:39:58 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:23:08 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i)
 	steps = fmax(dx, dy);
 	increment_x = dx / steps; //increments each axis to know which points to draw
 	increment_y = dy / steps;
-	while (++i < steps) //to draw the points between the start (p1) and end (p2) point
+	while (++i < steps && pj->pic_x > 0 && pj->pic_x < 1280 && pj->pic_y > 0 && pj->pic_y < 720) //to draw the points between the start (p1) and end (p2) point
 	{
 		mlx_put_pixel(image, pj->pic_x, pj->pic_y, get_rgba(165, 51, 255, 255));
 		if (ray->rx < pj->x)
