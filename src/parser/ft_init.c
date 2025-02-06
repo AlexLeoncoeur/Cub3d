@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/06 11:16:30 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:58:48 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ static char	*ft_clean_textures(char *texture)
 	return (NULL);
 }
 
+static void	ft_load_textures(t_data *data)
+{
+	data->e_wall = mlx_load_png(data->text_paths.east);
+	data->n_wall = mlx_load_png(data->text_paths.north);
+	data->s_wall = mlx_load_png(data->text_paths.south);
+	data->w_wall = mlx_load_png(data->text_paths.west);
+	if (!data->e_wall || !data->n_wall || !data->s_wall || !data->w_wall)
+		ft_errors(data, ERR_MLX, NULL);
+}
+
 void	ft_init(t_data *data, char *file)
 {
 	ft_init_data(data);
@@ -63,6 +73,7 @@ void	ft_init(t_data *data, char *file)
 	data->text_paths.north = ft_clean_textures(data->text_paths.north);
 	data->text_paths.south = ft_clean_textures(data->text_paths.south);
 	data->text_paths.west = ft_clean_textures(data->text_paths.west);
+	ft_load_textures(data);
 	ft_map_check(data);
 	ft_texture_check(data);
 }
