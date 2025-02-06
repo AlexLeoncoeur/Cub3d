@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:23:08 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:15:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	steps = fmax(dx, dy);
 	increment_x = dx / steps; //increments each axis to know which points to draw
 	increment_y = dy / steps;
-	while (++i < steps && wall->y < 720 && wall->y >= 0 && wall->x + wall->x_offset < 1280 && wall->x + wall->x_offset > 720) //to draw the points between the start (p1) and end (p2) point
+	while (++i < steps)//to draw the points between the start (p1) and end (p2) point
 	{
 		wall->thick = 4;
 		ft_wall_thickness(image, wall);
@@ -60,11 +60,11 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall = malloc(sizeof(t_wall));
 	if (!wall)
 		exit(EXIT_FAILURE);
-	wall->lineheight = (64 * game->data->height) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
+	wall->lineheight = (16 * game->data->height) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
 	if (wall->lineheight > game->data->height)
 		wall->lineheight = game->data->height;
 	wall->x_offset = (ray->count * 2);//(ray->count * 4 + 530) / 2; (ray->rx - 512) * -1 + (ray->count * 2);
-	wall->y_offset = 256 - (wall->lineheight / 2);
+	wall->y_offset = 360 - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, -1);
 }
 

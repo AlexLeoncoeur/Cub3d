@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 13:32:27 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:24:22 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	draw_rays(t_game_core *game)
 	ray = malloc(sizeof(t_ray));
 	if (!ray)
 		exit(1);
-	ray->hx = ray->rx;
-	ray->hy = ray->ry;
 	ray->rangle = game->pj->pangle - (DR * 30);
 	ft_restart_angle(ray);
 	ray->count = 0;
 	while (ray->count < 240)
 	{
+	ray->hx = ray->rx;
+	ray->hy = ray->ry;
 		ray->dof = 0;
 		ray->dis_h = 1000000;
 		ft_horizontal_lines(game, ray);

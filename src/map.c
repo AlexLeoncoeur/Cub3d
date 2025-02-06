@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 14:31:27 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:14:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static void	ft_draw_square(t_game_core *game, int x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < 64)
+	while (i < 16)
 	{
 		j = 0;
-		while (j < 64)
+		while (j < 16)
 		{
-			if ((i == 0 || i == 64) || (j == 0 || j == 64))
+			if ((i == 0 || i == 16) || (j == 0 || j == 16))
 				mlx_put_pixel(game->img, x + i, y + j, 0);
 			else
 				mlx_put_pixel(game->img, x + i, y + j, color);
@@ -70,12 +70,10 @@ void	ft_draw_2d(void *param)
 		j = 0;
 		while (j < 5)
 		{
-			while (game->data->map[j][i] == ' ')
-				i++;
-			if (game->data->map[j][i] == '1')
-				ft_draw_square(game, (i - game->spaces) * 16, j * 16, get_rgba(0, 0, 0, 255));
+			if (game->data->map[j][i] == '1' || game->data->map[j][i] == ' ')
+				ft_draw_square(game, i * 16, j * 16, get_rgba(0, 0, 0, 255));
 			else if (game->data->map[j][i] == '0')
-				ft_draw_square(game, (i - game->spaces) * 16, j * 16,
+				ft_draw_square(game, i * 16, j * 16,
 					get_rgba(255, 255, 255, 255));
 			j++;
 		}

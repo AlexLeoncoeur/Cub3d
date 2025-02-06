@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:37:54 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 13:15:15 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:23:53 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 {
-	while (ray->dof < 5 && ray->rx > 0 && ray->ry > 0 && ray->rx < 1280 && ray->ry < 720 && ray->mx < 34 && ray->my < 5) //max of cubes we check
+	while (ray->dof < 5 && ray->rx > 0 && ray->ry > 0 && ray->rx < 1280 && ray->ry < 720) //max of cubes we check
 	{
 		ray->mx = (int)ray->rx >> 4;
 		ray->my = (int)ray->ry >> 4;
 		ray->mp = ray->my * 25 + ray->mx; //8 is the x-size of the map
-		if (ray->mp > 0 && ray->mp < 25 * 5 && game->data->map[ray->my][ray->mx] == 1)
+		if (ray->mp > 0 && ray->mp < 25 * 5 && game->data->map[ray->my][ray->mx] == '1')
 		{
 			ray->hx = ray->rx;
 			ray->hy = ray->ry;
