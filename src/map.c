@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 12:56:06 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:31:27 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,17 @@ void	ft_draw_2d(void *param)
 	i = 0;
 	game = (t_game_core *)param;
 	ft_refresh_half_screen(game);
-	while (i != '\0')
+	while (i < 33)
 	{
 		j = 0;
-		while (j != '\0')
+		while (j < 5)
 		{
-			if (game->data->map[i][j] == '1')
-				ft_draw_square(game, i * 8, j * 8, get_rgba(0, 0, 0, 255));
-			else if (game->data->map[i][j] == '0')
-				ft_draw_square(game, i * 8, j * 8,
+			while (game->data->map[j][i] == ' ')
+				i++;
+			if (game->data->map[j][i] == '1')
+				ft_draw_square(game, (i - game->spaces) * 16, j * 16, get_rgba(0, 0, 0, 255));
+			else if (game->data->map[j][i] == '0')
+				ft_draw_square(game, (i - game->spaces) * 16, j * 16,
 					get_rgba(255, 255, 255, 255));
 			j++;
 		}

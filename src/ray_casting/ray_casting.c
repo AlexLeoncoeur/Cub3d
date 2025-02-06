@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 15:34:22 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:32:27 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void	draw_rays(t_game_core *game)
 		ray->vy = ray->ry;
 		ft_vertical_lines(game, ray);
 		ft_shortest_ray(ray);
-		if (ray->count == 239 || ray->count == 0)
-			draw_ray_line(game->img, game->pj, ray, -1);
+		draw_ray_line(game->img, game->pj, ray, -1);
 		ft_manage_3d_walls(game, ray);
 		ft_next_ray_dir(ray);
 		ray->count++;
