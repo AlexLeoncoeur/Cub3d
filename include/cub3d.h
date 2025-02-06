@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/05 16:38:04 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:24:02 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_data
 	int32_t			width;
 	int32_t			height;
 	int				map_rows;
-	int				map_longest_col;
+	int				map_longest_row;
 	uint32_t		sky;
 	uint32_t		floor;
 	mlx_texture_t	*n_wall;

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:14:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/05 16:54:26 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:23:55 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	ft_map_measuring(t_data *data)
 		j = 0;
 		while (data->map[i][j])
 			j++;
-		if (j > data->map_longest_col)
-			data->map_longest_col = j;
+		if (j > data->map_longest_row)
+			data->map_longest_row = j;
 		i++;
 	}
 	data->map_rows = i;
