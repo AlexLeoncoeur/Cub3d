@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:36:27 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/30 15:27:41 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:13:39 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_get_time(void)
 
 void	ft_init_data_pj(t_game_core *game, t_player *pj, mlx_image_t *img)
 {
-	pj->x = game->data->player->start_x * 8;
-	pj->y = game->data->player->start_y * 8;
+	pj->x = game->data->player->start_x * 16;
+	pj->y = game->data->player->start_y * 16;
 	game->pj = pj;
 	game->img = img;
 	game->xh_limit = game->data->width;
