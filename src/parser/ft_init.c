@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/05 16:54:59 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:16:30 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	ft_init_data(t_data *data)
 	data->s_wall = NULL;
 	data->e_wall = NULL;
 	data->w_wall = NULL;
+	data->player = malloc(sizeof(t_player));
 }
 
 static void	ft_init_mlx(t_data *data)
