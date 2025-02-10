@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 12:40:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:30:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,16 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall = malloc(sizeof(t_wall));
 	if (!wall)
 		exit(EXIT_FAILURE);
-	wall->lineheight = (16 * game->data->height) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
-	if (wall->lineheight > game->data->height)
-		wall->lineheight = game->data->height;
-	wall->x_offset = (ray->count * 2);//(ray->count * 4 + 530) / 2; (ray->rx - 512) * -1 + (ray->count * 2);
+	ray->a_cos = ray->rangle - game->pj->pangle ;
+	if (ray->a_cos < 0)
+		ray->a_cos += 2 * PI;
+	if (ray->a_cos >= 2 * PI)
+		ray->a_cos -= 2 * PI;
+	ray->total_dis = ray->total_dis * cos(ray->a_cos);
+	wall->lineheight = (16 * game->data->height) / ray->total_dis / (1280 / 720); //cube size * wall desired height. Distance to wall changes size
+	if (wall->lineheight > game->data->height - 1)
+		wall->lineheight = game->data->height - 1;
+	wall->x_offset = (ray->rx - 1280) * -1 + (ray->count * 4);//(ray->count * 2);//(ray->count * 4 + 530) / 2; 
 	wall->y_offset = 360 - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, -1);
 }

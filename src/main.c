@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:14:32 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:42:04 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,13 @@ void	ft_controls_hook(mlx_key_data_t keydata, void *param)
 			move_up(game);
 		if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
 			move_down(game);
-		if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
+		if (keydata.key == MLX_KEY_LEFT)
+			turn_left(game);
+		if (keydata.key == MLX_KEY_RIGHT)
+			turn_right(game);
+		if (keydata.key == MLX_KEY_A)
 			move_left(game);
-		if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
+		if (keydata.key == MLX_KEY_D)
 			move_right(game);
 	}
 }

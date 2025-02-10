@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:14:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:30:41 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,25 @@
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+static void	draw_background(t_game_core *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 1280)
+	{
+		j = -1;
+		while (++j < 720)
+		{
+			if (j < 360)
+				mlx_put_pixel(game->img, i, j, get_rgba(51, 255, 227, 255));
+			else
+				mlx_put_pixel(game->img, i, j, get_rgba(213, 189, 82, 255));
+		}
+	}
 }
 
 static void	ft_refresh_half_screen(t_game_core *game)
@@ -65,6 +84,8 @@ void	ft_draw_2d(void *param)
 	i = 0;
 	game = (t_game_core *)param;
 	ft_refresh_half_screen(game);
+	draw_background(game);
+	draw_rays(game);
 	while (i < 33)
 	{
 		j = 0;
@@ -80,5 +101,4 @@ void	ft_draw_2d(void *param)
 		i++;
 	}
 	ft_draw_player(game, game->img);
-	draw_rays(game);
 }

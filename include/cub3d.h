@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 13:34:12 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:44:22 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ typedef struct s_ray
 	double	xo;
 	double	yo;
 	double	rangle;
-	float	dis_h;
-	float	hx;
-	float	hy;
-	float	dis_v;
-	float	vx;
-	float	vy;
-	float	total_dis;
+	double	a_cos;
+	double	dis_h;
+	double	hx;
+	double	hy;
+	double	dis_v;
+	double	vx;
+	double	vy;
+	double	total_dis;
 }	t_ray;
 
 typedef struct s_player
@@ -137,6 +138,8 @@ void	move_up(t_game_core *game);
 void	move_down(t_game_core *game);
 void	move_left(t_game_core *game);
 void	move_right(t_game_core *game);
+void	turn_left(t_game_core *game);
+void	turn_right(t_game_core *game);
 
 /* -- ft_init.c -- */
 

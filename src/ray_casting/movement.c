@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:25:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/01/15 14:34:00 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:06:03 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ void	move_down(t_game_core *game)
 
 void	move_left(t_game_core *game)
 {
+	game->pj->x += sin(game->pj->pangle) * 5;
+	game->pj->y -= cos(game->pj->pangle) * 5;
+}
+
+void	move_right(t_game_core *game)
+{
+	game->pj->x -= sin(game->pj->pangle) * 5;
+	game->pj->y += cos(game->pj->pangle) * 5;
+}
+
+void	turn_left(t_game_core *game)
+{
 	game->pj->pangle -= 0.1;
 	if (game->pj->pangle < 0)
 		game->pj->pangle += 2 * PI;
@@ -33,7 +45,7 @@ void	move_left(t_game_core *game)
 	game->pj->pdy = sin(game->pj->pangle) * 5;
 }
 
-void	move_right(t_game_core *game)
+void	turn_right(t_game_core *game)
 {
 	game->pj->pangle += 0.1;
 	if (game->pj->pangle > 2 * PI)

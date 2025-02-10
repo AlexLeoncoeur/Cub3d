@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 16:44:21 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:27:27 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	draw_rays(t_game_core *game)
 		exit(1);
 	ray->hx = ray->rx;
 	ray->hy = ray->ry;
-	ray->rangle = game->pj->pangle - (DR * 30);
+	ray->rangle = game->pj->pangle - (DR * 40);
 	ft_restart_angle(ray);
 	ray->count = 0;
-	while (ray->count < 240)
+	while (ray->count < 320)
 	{
 		ray->dof = 0;
 		ray->dis_h = 1000000;
@@ -68,7 +68,7 @@ void	draw_rays(t_game_core *game)
 		ray->vy = ray->ry;
 		ft_vertical_lines(game, ray);
 		ft_shortest_ray(ray);
-		draw_ray_line(game->img, game->pj, ray, -1);
+		//draw_ray_line(game->img, game->pj, ray, -1);
 		ft_manage_3d_walls(game, ray);
 		ft_next_ray_dir(ray);
 		ray->count++;

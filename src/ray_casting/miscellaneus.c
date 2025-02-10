@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:36:27 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 13:13:39 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:54:29 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,6 @@ void	ft_init_data_pj(t_game_core *game, t_player *pj, mlx_image_t *img)
 	game->last_time = ft_get_time();
 	game->delay = 33;
 	game->pj->pangle = 6.28;
+	game->pj->pdx = cos(game->pj->pangle) * 5;
+	game->pj->pdy = sin(game->pj->pangle) * 5;
 }
