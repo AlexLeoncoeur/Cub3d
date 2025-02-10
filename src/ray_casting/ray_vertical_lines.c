@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:55:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 15:04:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:43:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 {
-	while (ray->dof < 25 && ray->ry > 0 && ray->rx > 0 && ray->rx < 1280 && ray->ry < 720) //max of cubes we check
+	while (ray->dof < 33 && ray->ry > 0 && ray->rx > 0 && ray->rx < 1280 && ray->ry < 720) //max of cubes we check
 	{
 		ray->mx = (int)ray->rx >> 4;
 		ray->my = (int)ray->ry >> 4;
-		ray->mp = ray->my * 25 + ray->mx; //8 is the x-size of the map
-		if (ray->mp > 0 && ray->mp < 25 * 5 && game->data->map[ray->my][ray->mx] == '1')
+		ray->mp = ray->my * 33 + ray->mx; //8 is the x-size of the map
+		if (ray->mp > 0 && ray->mp < 33 * 5 && game->data->map[ray->my][ray->mx] == '1')
 		{
 			ray->vx = ray->rx;
 			ray->vy = ray->ry;
 			ray->dis_v = ft_distance(game, ray->vx, ray->vy);
-			ray->dof = 25;
+			ray->dof = 33;
 		}
 		else
 		{
@@ -41,7 +41,7 @@ static void	ft_looking_straight_up_down(t_game_core *game, t_ray *ray)
 	{
 		ray->rx = game->pj->x;
 		ray->ry = game->pj->y;
-		ray->dof = 25;
+		ray->dof = 33;
 	}
 }
 

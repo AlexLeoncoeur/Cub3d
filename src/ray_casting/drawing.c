@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/06 18:59:42 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:40:44 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	float	increment_x;
 	float	increment_y;
 
-	wall->x = 0;
+	wall->x = ray->rx;
 	wall->y = 0;
 	dx = fabs(ray->rx - wall->x);
 	dy = fabs((wall->lineheight) - wall->y);
