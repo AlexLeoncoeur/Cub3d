@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:44:22 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:35:04 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ typedef struct s_player
 	mlx_image_t		*img;
 	int				start_x;
 	int				start_y;
+	int				xo;
+	int				yo;
+	int				mpx;
+	int				mpx_plus_xo;
+	int				mpx_minus_xo;
+	int				mpy;
+	int				mpy_plus_yo;
+	int				mpy_minus_yo;
 	double			x;
 	double			y;
 	double			pdx;

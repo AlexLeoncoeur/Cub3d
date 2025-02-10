@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:30:41 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:06:10 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	draw_pj(mlx_image_t *image, t_player *pj, int i)
 	steps = fmax(dx, dy);
 	increment_x = dx / steps; //increments each axis to know which points to draw
 	increment_y = dy / steps;
-	while (++i < steps) //to draw the points between the start (p1) and end (p2) point
+	while (++i < steps - 8) //to draw the points between the start (p1) and end (p2) point
 	{
 		ft_draw_pj_icon(image, pj);
 		if (pj->pdx + pj->x < pj->x)

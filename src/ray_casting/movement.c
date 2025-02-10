@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:25:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 17:06:03 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:01:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	move_up(t_game_core *game)
 {
-	game->pj->y += game->pj->pdy;
-	game->pj->x += game->pj->pdx;
+	if (game->data->map[(int)(game->pj->y + game->pj->pdy) / 16][(int)(game->pj->x + game->pj->pdx) / 16] == '0')
+	{
+		game->pj->y += game->pj->pdy;
+		game->pj->x += game->pj->pdx;
+	}
 }
 
 void	move_down(t_game_core *game)

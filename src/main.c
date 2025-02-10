@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:42:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:02:38 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,30 @@ static int	ft_check_cub(char *name)
 	return (0);
 }
 
+static void	xo_yo_fix(t_player *pj)
+{
+	if (pj->pdx < 0)
+		pj->xo -= 20;
+	else
+		pj->xo = 20;
+	if (pj->pdy < 0)
+		pj->yo -= 20;
+	else
+		pj->yo = 20;
+	pj->mpx = pj->x / 16;
+	pj->mpx_plus_xo = (pj->x + pj->xo) / 16;
+	pj->mpx_minus_xo = (pj->x - pj->xo) / 16;
+	pj->mpy = pj->y / 16;
+	pj->mpy_plus_yo = (pj->y + pj->yo) / 16;
+	pj->mpy_minus_yo = (pj->y - pj->yo) / 16;
+}
+
 void	ft_controls_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game_core	*game;
 
 	game = (t_game_core *)param;
+	xo_yo_fix(game->pj);
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
@@ -69,10 +88,8 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 {
 	int			i;
 	int			j;
-	//int			z;
 	mlx_image_t	*image;
 
-	//z = game->pj->pdx;
 	i = game->pj->x;
 	j = game->pj->y;
 	image = img;
