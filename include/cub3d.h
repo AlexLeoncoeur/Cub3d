@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 17:35:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:39:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_data
 	int32_t			height;
 	int				map_rows;
 	int				map_longest_row;
+	int				*texture_buffer[4];
 	uint32_t		sky;
 	uint32_t		floor;
 	mlx_texture_t	*n_wall;

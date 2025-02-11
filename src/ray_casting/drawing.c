@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 18:06:10 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:28:29 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall)
 {
-	int	i;
-
-	i = -1;
-	while (++i < wall->thick)
-	{
-		mlx_put_pixel(image, wall->x + wall->x_offset + i, wall->y + wall->y_offset, get_rgba(51, 255, 54, 255));
-	}
+	mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, get_rgba(51, 255, 54, 255));
 }
 
 static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
@@ -69,7 +63,7 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall->lineheight = (16 * game->data->height) / ray->total_dis / (1280 / 720); //cube size * wall desired height. Distance to wall changes size
 	if (wall->lineheight > game->data->height - 1)
 		wall->lineheight = game->data->height - 1;
-	wall->x_offset = (ray->rx - 1280) * -1 + (ray->count * 4);//(ray->count * 2);//(ray->count * 4 + 530) / 2; 
+	wall->x_offset = (ray->rx - 1280) * -1 + (ray->count);//(ray->count * 2);//(ray->count * 4 + 530) / 2; 
 	wall->y_offset = 360 - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, -1);
 }

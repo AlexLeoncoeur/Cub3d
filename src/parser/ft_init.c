@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/10 16:30:31 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:13:25 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	ft_load_textures(t_data *data)
 	data->w_wall = mlx_load_png(data->text_paths.west);
 	if (!data->e_wall || !data->n_wall || !data->s_wall || !data->w_wall)
 		ft_errors(data, ERR_MLX, NULL);
+	//data->texture_buffer[]
 }
 
 void	ft_init(t_data *data, char *file)
