@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/11 14:39:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:33:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_wall
 	double	x;
 	double	y;
 	float	lineheight;
-	int		thick;
 	int		x_offset;
 	int		y_offset;
 }	t_wall;
@@ -51,6 +50,7 @@ typedef struct s_ray
 	int		my;
 	int		mp;
 	int		dof;
+	int		v_h;
 	double	rx;
 	double	ry;
 	double	xo;
@@ -104,9 +104,12 @@ typedef struct s_data
 	mlx_image_t		*img;
 	int32_t			width;
 	int32_t			height;
+	uint8_t			*texture_buffer[4];
 	int				map_rows;
 	int				map_longest_row;
-	int				*texture_buffer[4];
+	float			ty;
+	float			ty_step;
+	float			ty_off;
 	uint32_t		sky;
 	uint32_t		floor;
 	mlx_texture_t	*n_wall;

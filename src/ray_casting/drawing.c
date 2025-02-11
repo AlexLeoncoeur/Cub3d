@@ -6,18 +6,40 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/11 15:28:29 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:47:43 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall)
+static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_game_core *game)
 {
-	mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, get_rgba(51, 255, 54, 255));
+	float	e;
+	float	n;
+	float	s;
+	float	w;
+
+	e = game->data->texture_buffer[0][(int)game->data->ty * 64];
+	n = game->data->texture_buffer[0][(int)game->data->ty * 64];
+	s = game->data->texture_buffer[0][(int)game->data->ty * 64];
+	w = game->data->texture_buffer[0][(int)game->data->ty * 64];
+	if (ray->v_h == 0)
+	{
+		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2)) //Este, amarillo
+			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, get_rgba(e, e, e, 255));
+		else//Oeste, rojo
+			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, get_rgba(w, w, w, 255));	
+	}
+	if (ray->v_h == 1)
+	{
+		if (ray->rangle < (PI) && ray->rangle > (0)) //Sur, rosa
+			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, get_rgba(s, s, s, 255));
+		else//Norte, azul
+			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, get_rgba(n, n, n, 255));
+	}
 }
 
-static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
+static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, t_game_core *game, int i)
 {
 	float	dx;
 	float	dy;
@@ -25,6 +47,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	float	increment_x;
 	float	increment_y;
 
+	game->data->ty = game->data->ty_off * game->data->ty_step;
 	wall->x = ray->rx;
 	wall->y = 0;
 	dx = fabs(ray->rx - wall->x);
@@ -34,8 +57,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 	increment_y = dy / steps;
 	while (++i < steps)//to draw the points between the start (p1) and end (p2) point
 	{
-		wall->thick = 4;
-		ft_wall_thickness(image, wall);
+		ft_wall_thickness(image, wall, ray, game);
 		if (ray->rx < wall->x)
 			wall->x -= increment_x;
 		else
@@ -44,6 +66,7 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, int i)
 			wall->y -= increment_y;
 		else
 			wall->y += increment_y;
+		game->data->ty += game->data->ty_step;
 	}
 }
 
@@ -61,11 +84,15 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 		ray->a_cos -= 2 * PI;
 	ray->total_dis = ray->total_dis * cos(ray->a_cos);
 	wall->lineheight = (16 * game->data->height) / ray->total_dis / (1280 / 720); //cube size * wall desired height. Distance to wall changes size
+	game->data->ty_step = 64 / wall->lineheight;
 	if (wall->lineheight > game->data->height - 1)
+	{
+		game->data->ty_off = (wall->lineheight - (game->data->height - 1)) / 2;
 		wall->lineheight = game->data->height - 1;
+	}
 	wall->x_offset = (ray->rx - 1280) * -1 + (ray->count);//(ray->count * 2);//(ray->count * 4 + 530) / 2; 
 	wall->y_offset = 360 - (wall->lineheight / 2);
-	draw_wall_lines(game->img, ray, wall, -1);
+	draw_wall_lines(game->img, ray, wall, game, -1);
 }
 
 static void	ft_draw_pj_icon(mlx_image_t *image, t_player *pj)

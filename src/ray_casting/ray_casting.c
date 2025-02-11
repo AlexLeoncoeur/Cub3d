@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/11 15:33:27 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:45:05 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ static void	ft_shortest_ray(t_ray *ray)
 		ray->rx = ray->vx;
 		ray->ry = ray->vy;
 		ray->total_dis = ray->dis_v;
+		ray->v_h = 0;
 	}
 	else if (ray->dis_v > ray->dis_h)
 	{
 		ray->ry = ray->hy;
 		ray->rx = ray->hx;
 		ray->total_dis = ray->dis_h;
+		ray->v_h = 1;
 	}
 }
 
@@ -57,6 +59,7 @@ void	draw_rays(t_game_core *game)
 	ray->rangle = game->pj->pangle - (DR * 40);
 	ft_restart_angle(ray);
 	ray->count = 0;
+	ray->v_h = 0;
 	while (ray->count < 1280)
 	{
 		ray->dof = 0;
