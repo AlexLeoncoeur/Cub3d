@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/11 18:47:43 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:34:02 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_ga
 	float	s;
 	float	w;
 
-	e = game->data->texture_buffer[0][(int)game->data->ty * 64];
-	n = game->data->texture_buffer[0][(int)game->data->ty * 64];
-	s = game->data->texture_buffer[0][(int)game->data->ty * 64];
-	w = game->data->texture_buffer[0][(int)game->data->ty * 64];
+	e = game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx)];
+	n = game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx)];
+	s = game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx)];
+	w = game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx)];
 	if (ray->v_h == 0)
 	{
 		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2)) //Este, amarillo
@@ -48,6 +48,19 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, t_game
 	float	increment_y;
 
 	game->data->ty = game->data->ty_off * game->data->ty_step;
+	if (ray->v_h == 1)
+	{
+		game->data->tx = ((int)(ray->rx / 2) % 64);
+		if (ray->rangle > 180)
+			game->data->tx = 63 - game->data->tx;
+	}
+	else if (ray->v_h == 0)
+	{
+		game->data->tx = ((int)(ray->ry / 2) % 64);
+		if (ray->rangle > 90 && ray->rangle < 270)
+			game->data->tx = 63 - game->data->tx;
+	}
+	game->data->tx = ((int)(ray->ry / 2) % 64);
 	wall->x = ray->rx;
 	wall->y = 0;
 	dx = fabs(ray->rx - wall->x);
@@ -83,14 +96,14 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	if (ray->a_cos >= 2 * PI)
 		ray->a_cos -= 2 * PI;
 	ray->total_dis = ray->total_dis * cos(ray->a_cos);
-	wall->lineheight = (16 * game->data->height) / ray->total_dis / (1280 / 720); //cube size * wall desired height. Distance to wall changes size
+	wall->lineheight = ((16 * game->data->height) / ray->total_dis) / (1280 / 720); //cube size * wall desired height. Distance to wall changes size
 	game->data->ty_step = 64 / wall->lineheight;
-	if (wall->lineheight > game->data->height - 1)
+	if (wall->lineheight > game->data->height)
 	{
 		game->data->ty_off = (wall->lineheight - (game->data->height - 1)) / 2;
-		wall->lineheight = game->data->height - 1;
+		wall->lineheight = game->data->height;
 	}
-	wall->x_offset = (ray->rx - 1280) * -1 + (ray->count);//(ray->count * 2);//(ray->count * 4 + 530) / 2; 
+	wall->x_offset = (ray->count - ray->rx);//(ray->count * 2);//(ray->count * 4 + 530) / 2;
 	wall->y_offset = 360 - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, game, -1);
 }

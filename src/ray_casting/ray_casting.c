@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/11 16:45:05 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:45:58 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_restart_angle(t_ray *ray)
 
 static void	ft_next_ray_dir(t_ray *ray)
 {
-	ray->rangle += (DR * 80) / 1280;
+	ray->rangle += ((DR * 80) / 1280);
 	if (ray->rangle < 0)
 		ray->rangle += 2 * PI;
 	if (ray->rangle > 2 * PI)

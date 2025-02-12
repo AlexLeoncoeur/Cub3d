@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/11 18:33:32 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:08:48 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_data
 	uint8_t			*texture_buffer[4];
 	int				map_rows;
 	int				map_longest_row;
+	float			tx;
 	float			ty;
 	float			ty_step;
 	float			ty_off;

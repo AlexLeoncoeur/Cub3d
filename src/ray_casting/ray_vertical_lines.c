@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:55:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:30:31 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:43:07 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_looking_left_right(t_game_core *game, t_ray *ray)
 	float	ntan;
 
 	ntan = -tan(ray->rangle);
-	if (ray->rangle > PI / 2 && ray->rangle < 3 * PI / 2) //Looking left
+	if (ray->rangle > PI / 2 && ray->rangle <= 3 * PI / 2) //Looking left
 	{
 		ray->rx = (((int)game->pj->x >> 4) << 4) - 0.0001;
 		ray->ry = (game->pj->x - ray->rx) * ntan + game->pj->y;
