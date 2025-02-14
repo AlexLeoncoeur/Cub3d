@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/12 18:00:28 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/14 15:40:35 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,24 @@ static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_ga
 	int	s;
 	int	w;
 
+	//printf("wall.x = %f, wall.offset = %d, total = %f\n", wall->x, wall->x_offset, wall->x + wall->x_offset);
 	if (ray->v_h == 0)
 	{
 		e = get_rgba(game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
 		w = get_rgba(game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
 		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2)) //Este, amarillo
-			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, e);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, e);
 		else//Oeste, rojo
-			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, w);	
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, w);	
 	}
 	else if (ray->v_h == 1)
 	{
 		n = get_rgba(game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
 		s = get_rgba(game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
 		if (ray->rangle < (PI) && ray->rangle > (0)) //Sur, rosa
-			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, s);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, s);
 		else//Norte, azul
-			mlx_put_pixel(image, wall->x + wall->x_offset, wall->y + wall->y_offset, n);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, n);
 	}
 }
 
@@ -92,7 +93,7 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	game->data->ty_off = 0;
 	if (wall->lineheight > game->data->height)
 	{
-		game->data->ty_off = (wall->lineheight - (game->data->height - 1)) / 2;
+		game->data->ty_off =  (wall->lineheight - (game->data->height - 1)) / 2;
 		wall->lineheight = game->data->height;
 	}
 	wall->x_offset = (ray->count - ray->rx);//(ray->count * 2);//(ray->count * 4 + 530) / 2;
