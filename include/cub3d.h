@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/12 14:20:16 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:29:32 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_ray
 	int		mp;
 	int		dof;
 	int		v_h;
+	double	wall_side;
 	double	rx;
 	double	ry;
 	double	xo;

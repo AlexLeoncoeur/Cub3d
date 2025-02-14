@@ -6,37 +6,60 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/14 15:40:35 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:20:24 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_game_core *game)
+static void	find_wall_side(t_game_core *game, t_ray *ray)
 {
-	int	e;
-	int	n;
-	int	s;
-	int	w;
-
-	//printf("wall.x = %f, wall.offset = %d, total = %f\n", wall->x, wall->x_offset, wall->x + wall->x_offset);
 	if (ray->v_h == 0)
 	{
-		e = get_rgba(game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[0][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
-		w = get_rgba(game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[3][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
+		ray->wall_side = game->pj->y + ray->total_dis * sin(ray->rangle);
+	}
+	if (ray->v_h == 1)
+	{
+		ray->wall_side = game->pj->x + ray->total_dis * cos(ray->rangle);
+	}
+	ray->wall_side -= floor(ray->wall_side);
+	game->data->tx = (int)(ray->wall_side * 64);
+}
+
+static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_game_core *game)
+{
+	int	texture;
+	int	tx;
+	int	ty;
+
+	texture = 0;
+	tx = (int)(game->data->tx) % 64;
+	ty = (int)(game->data->ty) % 64;
+	if (ray->v_h == 0)
+	{
 		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2)) //Este, amarillo
-			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, e);
+		{
+			texture = get_rgba(game->data->texture_buffer[0][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[0][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[0][(int)(ty * 64 + tx) * 4 + 2], 255);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, texture);
+		}
 		else//Oeste, rojo
-			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, w);	
+		{
+			texture = get_rgba(game->data->texture_buffer[3][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[3][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[3][(int)(ty * 64 + tx) * 4 + 2], 255);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, texture);	
+		}
 	}
 	else if (ray->v_h == 1)
 	{
-		n = get_rgba(game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[1][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
-		s = get_rgba(game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx) * 4], game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx) * 4 + 1], game->data->texture_buffer[2][(int)(game->data->ty * 64 + game->data->tx) * 4 + 2], 255);
 		if (ray->rangle < (PI) && ray->rangle > (0)) //Sur, rosa
-			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, s);
+		{
+			texture = get_rgba(game->data->texture_buffer[1][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[1][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[1][(int)(ty * 64 + tx) * 4 + 2], 255);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, texture);
+		}
 		else//Norte, azul
-			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, n);
+		{
+			texture = get_rgba(game->data->texture_buffer[2][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[2][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[2][(int)(ty * 64 + tx) * 4 + 2], 255);
+			mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, texture);
+		}
 	}
 }
 
@@ -48,11 +71,10 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, t_game
 	float	increment_x;
 	float	increment_y;
 
-	game->data->ty = game->data->ty_off * game->data->ty_step;
-	if (ray->v_h == 0)
-		game->data->tx = ((int)(ray->rx / 2) % 64);
-	if (ray->v_h == 1)
-		game->data->tx = ((int)(ray->ry / 2) % 64);
+	game->data->ty_step = 64 / wall->lineheight;
+	game->data->ty = ((int)(wall->y + wall->y_offset - (360 - wall->lineheight / 2) * game->data->ty_step) * game->data->ty_off);
+	game->data->ty = fmax(0, fmin(63, game->data->ty));
+	find_wall_side(game, ray);
 	wall->x = ray->rx;
 	wall->y = 0;
 	dx = fabs(ray->rx - wall->x);
@@ -82,20 +104,20 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall = malloc(sizeof(t_wall));
 	if (!wall)
 		exit(EXIT_FAILURE);
-	ray->a_cos = ray->rangle - game->pj->pangle ;
+	ray->a_cos = ray->rangle - game->pj->pangle;
 	if (ray->a_cos < 0)
 		ray->a_cos += 2 * PI;
 	if (ray->a_cos >= 2 * PI)
 		ray->a_cos -= 2 * PI;
 	ray->total_dis = ray->total_dis * cos(ray->a_cos);
-	wall->lineheight = ((16 * game->data->height) / ray->total_dis) / (1280 / 720); //cube size * wall desired height. Distance to wall changes size
-	game->data->ty_step = 64 / (float)wall->lineheight;
-	game->data->ty_off = 0;
+	ray->total_dis = fmax(ray->total_dis, 0.0001);
+	wall->lineheight = (game->data->height / ray->total_dis) * 16; //cube size * wall desired height. Distance to wall changes size
 	if (wall->lineheight > game->data->height)
 	{
 		game->data->ty_off =  (wall->lineheight - (game->data->height - 1)) / 2;
 		wall->lineheight = game->data->height;
 	}
+	game->data->ty_off = 0;
 	wall->x_offset = (ray->count - ray->rx);//(ray->count * 2);//(ray->count * 4 + 530) / 2;
 	wall->y_offset = 360 - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, game, -1);
