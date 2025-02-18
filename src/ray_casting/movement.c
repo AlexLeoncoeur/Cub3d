@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:25:42 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 17:50:38 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:55:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	move_up(t_game_core *game)
 {
-	if (game->data->map[(int)(game->pj->y + game->pj->pdy) / 16][(int)(game->pj->x + game->pj->pdx) / 16] == '0')
+	if (game->data->map[(int)(game->pj->y + game->pj->pdy) / 16]
+		[(int)(game->pj->x + game->pj->pdx) / 16] == '0')
 	{
 		game->pj->y += game->pj->pdy;
 		game->pj->x += game->pj->pdx;
@@ -23,7 +24,8 @@ void	move_up(t_game_core *game)
 
 void	move_down(t_game_core *game)
 {
-	if (game->data->map[(int)(game->pj->y - game->pj->pdy) / 16][(int)(game->pj->x - game->pj->pdx) / 16] == '0')
+	if (game->data->map[(int)(game->pj->y - game->pj->pdy) / 16]
+		[(int)(game->pj->x - game->pj->pdx) / 16] == '0')
 	{
 		game->pj->y -= game->pj->pdy;
 		game->pj->x -= game->pj->pdx;
@@ -32,7 +34,8 @@ void	move_down(t_game_core *game)
 
 void	move_left(t_game_core *game)
 {
-	if (game->data->map[(int)(game->pj->y - game->pj->pdx) / 16][(int)(game->pj->x + game->pj->pdy) / 16] == '0')
+	if (game->data->map[(int)(game->pj->y - game->pj->pdx) / 16]
+		[(int)(game->pj->x + game->pj->pdy) / 16] == '0')
 	{
 		game->pj->x += sin(game->pj->pangle) * 5;
 		game->pj->y -= cos(game->pj->pangle) * 5;
@@ -41,7 +44,8 @@ void	move_left(t_game_core *game)
 
 void	move_right(t_game_core *game)
 {
-	if (game->data->map[(int)(game->pj->y + game->pj->pdx) / 16][(int)(game->pj->x - game->pj->pdy) / 16] == '0')
+	if (game->data->map[(int)(game->pj->y + game->pj->pdx) / 16]
+		[(int)(game->pj->x - game->pj->pdy) / 16] == '0')
 	{
 		game->pj->x -= sin(game->pj->pangle) * 5;
 		game->pj->y += cos(game->pj->pangle) * 5;
