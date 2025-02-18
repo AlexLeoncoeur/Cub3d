@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/17 16:50:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:36:14 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,21 @@ static void	find_wall_side(t_game_core *game, t_ray *ray)
 	if (ray->v_h == 0)
 	{
 		ray->wall_side = game->pj->y + ray->total_dis * sin(ray->rangle);
+		ray->wall_side = ray->wall_side / 16;
 	}
-	if (ray->v_h == 1)
+	else if (ray->v_h == 1)
 	{
 		ray->wall_side = game->pj->x + ray->total_dis * cos(ray->rangle);
+		ray->wall_side = ray->wall_side / 16;
 	}
 	ray->wall_side -= floor(ray->wall_side);
+	if (ray->wall_side < 0)
+		ray->wall_side += 1.0;
 	game->data->tx = (int)(ray->wall_side * 64);
+	if (game->data->tx >= 64)
+		game->data->tx = 63;
+	if (game->data->tx < 0)
+		game->data->tx = 0;
 }
 
 static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_game_core *game)
@@ -33,8 +41,8 @@ static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_ga
 	int	ty;
 
 	texture = 0;
-	tx = (int)(game->data->tx) % 64;
-	ty = (int)(game->data->ty) % 64;
+	tx = (int)(game->data->tx);
+	ty = (int)(game->data->ty);
 	if (ray->v_h == 0)
 	{
 		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2)) //Este, amarillo
@@ -96,6 +104,7 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 		ray->a_cos += 2 * PI;
 	if (ray->a_cos >= 2 * PI)
 		ray->a_cos -= 2 * PI;
+	ray->real_distance = ray->total_dis;
 	ray->total_dis = ray->total_dis * cos(ray->a_cos);
 	ray->total_dis = fmax(ray->total_dis, 0.0001);
 	wall->lineheight = (16 * game->data->height) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
