@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_player_position.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:14:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/06 11:23:55 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:00:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_player_coords(t_data *data, char **map)
 			{
 				coords[0] = i;
 				coords[1] = j;
-				data->player->start_x = coords[0];
-				data->player->start_y = coords[1];
+				data->player->start_x = coords[0] + 0.5;
+				data->player->start_y = coords[1] + 0.5;
 				ft_map_measuring(data);
 				return ;
 			}

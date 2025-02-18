@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 16:24:46 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:50:38 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 		game->data->ty_off = (wall->lineheight - game->data->height) / 2;
 		wall->lineheight = game->data->height;
 	}
-	wall->y_offset = 360 - (wall->lineheight / 2);
+	wall->y_offset = (game->data->height / 2) - (wall->lineheight / 2);
 	draw_wall_lines(game->img, ray, wall, game, -1);
 }
 

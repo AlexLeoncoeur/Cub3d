@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 12:59:18 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:41:25 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct s_ray
 typedef struct s_player
 {
 	mlx_image_t		*img;
-	int				start_x;
-	int				start_y;
+	float			start_x;
+	float			start_y;
 	int				xo;
 	int				yo;
 	int				mpx;
@@ -258,6 +258,7 @@ void	ft_horizontal_lines(t_game_core *game, t_ray *ray);
 
 /* -- Miscellaneus.c -- */
 int		ft_get_time(void);
+double	ft_find_dir(t_game_core *game);
 float	ft_distance(t_game_core *game, float end_x, float end_y);
 void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
 

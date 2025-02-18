@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/12 15:23:21 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:59:04 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	ft_init_data(t_data *data)
 {
-	data->width = 1280;
-	data->height = 720;
+	data->width = 1920;
+	data->height = 1080;
 	data->sky = 0;
 	data->floor = 0;
 	data->text_paths.east = NULL;

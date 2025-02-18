@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/12 12:45:58 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:49:56 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	ft_restart_angle(t_ray *ray)
 		ray->rangle -= 2 * PI;
 }
 
-static void	ft_next_ray_dir(t_ray *ray)
+static void	ft_next_ray_dir(t_game_core *game, t_ray *ray)
 {
-	ray->rangle += ((DR * 80) / 1280);
+	ray->rangle += ((DR * 80) / game->data->width);
 	if (ray->rangle < 0)
 		ray->rangle += 2 * PI;
 	if (ray->rangle > 2 * PI)
@@ -60,7 +60,7 @@ void	draw_rays(t_game_core *game)
 	ft_restart_angle(ray);
 	ray->count = 0;
 	ray->v_h = 0;
-	while (ray->count < 1280)
+	while (ray->count < game->data->width)
 	{
 		ray->dof = 0;
 		ray->dis_h = 1000000;
@@ -73,7 +73,7 @@ void	draw_rays(t_game_core *game)
 		ft_shortest_ray(ray);
 		//draw_ray_line(game->img, game->pj, ray, -1);
 		ft_manage_3d_walls(game, ray);
-		ft_next_ray_dir(ray);
+		ft_next_ray_dir(game, ray);
 		ray->count++;
 	}
 		//funcion para borrar ray

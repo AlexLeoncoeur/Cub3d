@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/10 16:30:41 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:35:47 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	draw_background(t_game_core *game)
 	int	j;
 
 	i = -1;
-	while (++i < 1280)
+	while (++i < game->data->width)
 	{
 		j = -1;
-		while (++j < 720)
+		while (++j < game->data->height)
 		{
-			if (j < 360)
-				mlx_put_pixel(game->img, i, j, get_rgba(51, 255, 227, 255));
+			if (j < (game->data->height / 2))
+				mlx_put_pixel(game->img, i, j, game->data->sky);
 			else
-				mlx_put_pixel(game->img, i, j, get_rgba(213, 189, 82, 255));
+				mlx_put_pixel(game->img, i, j, game->data->floor);
 		}
 	}
 }
@@ -42,10 +42,10 @@ static void	ft_refresh_half_screen(t_game_core *game)
 	int	j;
 
 	i = 0;
-	while (i < 720)
+	while (i < game->data->height)
 	{
 		j = 0;
-		while (j < 1280)
+		while (j < game->data->width)
 		{
 			mlx_put_pixel(game->img, j, i, 0);
 			j++;
@@ -81,24 +81,24 @@ void	ft_draw_2d(void *param)
 	int			i;
 	int			j;
 
-	i = 0;
+	i = -1;
 	game = (t_game_core *)param;
 	ft_refresh_half_screen(game);
 	draw_background(game);
 	draw_rays(game);
-	while (i < 33)
+	while (++i < 33)
 	{
-		j = 0;
-		while (j < 5)
+		j = -1;
+		while (++j < game->data->map_rows)
 		{
 			if (game->data->map[j][i] == '1' || game->data->map[j][i] == ' ')
 				ft_draw_square(game, i * 16, j * 16, get_rgba(0, 0, 0, 255));
-			else if (game->data->map[j][i] == '0')
+			else if (game->data->map[j][i] == '0' || game->data->map[j][i] == 'S'|| game->data->map[j][i] == 'E' || game->data->map[j][i] == 'W' || game->data->map[j][i] == 'N')
+			{
 				ft_draw_square(game, i * 16, j * 16,
 					get_rgba(255, 255, 255, 255));
-			j++;
+			}
 		}
-		i++;
 	}
 	ft_draw_player(game, game->img);
 }
