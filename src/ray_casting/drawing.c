@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 13:36:14 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:32:50 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 static void	find_wall_side(t_game_core *game, t_ray *ray)
 {
+	double	distance_corrected;
+
+	distance_corrected = ray->real_distance * cos(ray->rangle);
 	if (ray->v_h == 0)
 	{
-		ray->wall_side = game->pj->y + ray->total_dis * sin(ray->rangle);
+		ray->wall_side = game->pj->y + distance_corrected * sin(ray->rangle);
 		ray->wall_side = ray->wall_side / 16;
 	}
 	else if (ray->v_h == 1)
 	{
-		ray->wall_side = game->pj->x + ray->total_dis * cos(ray->rangle);
+		ray->wall_side = game->pj->x + distance_corrected * cos(ray->rangle);
 		ray->wall_side = ray->wall_side / 16;
 	}
 	ray->wall_side -= floor(ray->wall_side);
