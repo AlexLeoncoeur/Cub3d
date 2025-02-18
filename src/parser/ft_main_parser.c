@@ -6,13 +6,13 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/05 16:17:46 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:52:31 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	set_colors(t_data *data, char **aux)
+void	ft_set_colors(t_data *data, char **aux)
 {
 	uint8_t		col[3];
 	char		**rgb;
@@ -56,17 +56,7 @@ static void	save_textures(t_data *data, char *line)
 		len++;
 	if (len <= 1 && aux[0][0] != '\n')
 		ft_errors(data, ERR_TEXT, "Error: no texture");
-	if (!ft_strncmp(line, "NO ", 3))
-		data->text_paths.north = ft_strdup(ft_strtrim(aux[1], "\n"));
-	else if (!ft_strncmp(line, "SO ", 3))
-		data->text_paths.south = ft_strdup(ft_strtrim(aux[1], "\n"));
-	else if (!ft_strncmp(line, "WE ", 3))
-		data->text_paths.west = ft_strdup(ft_strtrim(aux[1], "\n"));
-	else if (!ft_strncmp(line, "EA ", 3))
-		data->text_paths.east = ft_strdup(ft_strtrim(aux[1], "\n"));
-	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
-		set_colors(data, aux);
-	ft_clean_array(aux);
+	ft_aux_trim(data, aux, line);
 }
 
 static char	*parse_textures(t_data *data, int fd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/14 16:29:32 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:53:14 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,14 @@ void	ft_init(t_data *data, char *file);
  */
 void	ft_main_parser(t_data *data, char *file);
 
+/**
+ * @brief Sets color for floor and sky
+ * 
+ * @param data 
+ * @param aux 
+ */
+void	ft_set_colors(t_data *data, char **aux);
+
 /* -- ft_map_check.c -- */
 
 /**
@@ -191,7 +199,16 @@ void	ft_map_check(t_data *data);
  * 
  * @param data 
  */
-void    ft_texture_check(t_data *data);
+void	ft_texture_check(t_data *data);
+
+/**
+ * @brief Auxiliar function to help with memory leaks and freeing the trim
+ * 
+ * @param data 
+ * @param arr 
+ * @param line 
+ */
+void	ft_aux_trim(t_data *data, char **arr, char *line);
 
 /* -- ft_player_position.c -- */
 
@@ -201,7 +218,7 @@ void    ft_texture_check(t_data *data);
  * @param map 
  * @param data 
  */
-void		ft_player_coords(t_data *data, char **map);
+void	ft_player_coords(t_data *data, char **map);
 
 /* -- ft_exit.c -- */
 

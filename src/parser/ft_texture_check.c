@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_texture_check.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/11 14:45:02 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:53:20 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	ft_aux_trim(t_data *data, char **arr, char *line)
+{
+	char	*temp;
+
+	temp = ft_strtrim(arr[1], "\n");
+	if (!ft_strncmp(line, "NO ", 3))
+		data->text_paths.north = ft_strdup(temp);
+	else if (!ft_strncmp(line, "SO ", 3))
+		data->text_paths.south = ft_strdup(temp);
+	else if (!ft_strncmp(line, "WE ", 3))
+		data->text_paths.west = ft_strdup(temp);
+	else if (!ft_strncmp(line, "EA ", 3))
+		data->text_paths.east = ft_strdup(temp);
+	else if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
+		ft_set_colors(data, arr);
+	free(temp);
+	ft_clean_array(arr);
+}
 
 void	ft_texture_check(t_data *data)
 {
