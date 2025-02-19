@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 18:31:46 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:35:19 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	draw_rays(t_game_core *game)
 	ray->v_h = 0;
 	while (++ray->count < game->data->width)
 	{
-		ray->dof = 0;
 		ray->dis_h = 1000000;
-		ft_horizontal_lines(game, ray);
 		ray->dis_v = 1000000;
+		ray->dof = 0;
+		ft_horizontal_lines(game, ray);
 		ray->dof = 0;
 		ray->vx = ray->rx;
 		ray->vy = ray->ry;

@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:37:54 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 17:56:06 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:37:40 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 {
-	while (ray->dof < game->data->map_rows && ray->rx > 0 && ray->ry > 0 && ray->rx < game->data->width && ray->ry < game->data->height)
+	while (ray->dof < game->data->map_rows && ray->rx > 0 && ray->ry > 0
+		&& ray->rx < game->data->width && ray->ry < game->data->height)
 	{
 		ray->mx = (int)ray->rx >> 4;
 		ray->my = (int)ray->ry >> 4;
 		ray->mp = ray->my * 33 + ray->mx;
-		if (ray->mp > 0 && ray->mp < 33 * game->data->map_rows && game->data->map[ray->my][ray->mx] == '1')
+		if (ray->mp > 0 && ray->mp < 33 * game->data->map_rows
+			&& game->data->map[ray->my][ray->mx] == '1')
 		{
 			ray->hx = ray->rx;
 			ray->hy = ray->ry;
@@ -37,7 +39,7 @@ static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 
 static void	ft_looking_straight_left_right(t_game_core *game, t_ray *ray)
 {
-	if (ray->rangle == 0 || ray->rangle == PI) //Looking straight left or right
+	if (ray->rangle == 0 || ray->rangle == PI)
 	{
 		ray->rx = game->pj->x;
 		ray->ry = game->pj->y;
@@ -50,14 +52,14 @@ static void	ft_looking_up_down(t_game_core *game, t_ray *ray)
 	float	atan;
 
 	atan = -1 / tan(ray->rangle);
-	if (ray->rangle > PI) //Looking down
+	if (ray->rangle > PI)
 	{
 		ray->ry = (((int)game->pj->y >> 4) << 4) - 0.0001;
 		ray->rx = (game->pj->y - ray->ry) * atan + game->pj->x;
 		ray->yo = -16;
 		ray->xo = -ray->yo * atan;
 	}
-	if (ray->rangle < PI) //Looking up
+	if (ray->rangle < PI)
 	{
 		ray->ry = (((int)game->pj->y >> 4) << 4) + 16;
 		ray->rx = (game->pj->y - ray->ry) * atan + game->pj->x;
