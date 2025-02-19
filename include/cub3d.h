@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 12:52:56 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:32:13 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct s_player
 	double			pangle;
 	double			pic_x;
 	double			pic_y;
-	double			movespeed;
+	double			m_speed;
 }	t_player;
 
 typedef struct s_paths
@@ -148,7 +148,7 @@ typedef struct s_game_core
 	int				last_time;
 	int				current_time;
 	int				delay;
-	int				spaces;
+	int				i;
 }	t_game_core;
 
 /* -- main.c -- */
@@ -169,6 +169,8 @@ void	move_up(t_game_core *game);
 void	move_down(t_game_core *game);
 void	move_left(t_game_core *game);
 void	move_right(t_game_core *game);
+
+/* -- turn_move.c -- */
 void	turn_left(t_game_core *game);
 void	turn_right(t_game_core *game);
 
@@ -265,6 +267,7 @@ void	ft_clean_array(char **array);
 
 /* -- ray_casting.c -- */
 void	draw_rays(t_game_core *game);
+int		find_color(t_game_core *game, int tx, int ty, int side);
 
 /* -- ray_vertical_lines -- */
 void	ft_vertical_lines(t_game_core *game, t_ray *ray);
@@ -280,8 +283,14 @@ void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
 
 /* -- Drawing.c -- */
 void	ft_manage_3d_walls(t_game_core *game, t_ray *ray);
+//void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i);
+
+/* -- Draw_pj.c -- */
 void	draw_pj(mlx_image_t *image, t_player *pj, int i);
-void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i);
+
+/* -- Leaks_norm.c -- */
+int		check_valid_pos(char c);
+void	ft_delete(t_game_core *game);
 
 /**
  * @brief Loads animation to mlx

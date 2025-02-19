@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 13:10:26 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:46:42 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_draw_2d(void *param)
 		{
 			if (game->data->map[j][i] == '1' || game->data->map[j][i] == ' ')
 				ft_draw_square(game, i * 16, j * 16, get_rgba(0, 0, 0, 255));
-			else if (game->data->map[j][i] == '0' || game->data->map[j][i] == 'S'|| game->data->map[j][i] == 'E' || game->data->map[j][i] == 'W' || game->data->map[j][i] == 'N')
+			else if (check_valid_pos(game->data->map[j][i]))
 			{
 				ft_draw_square(game, i * 16, j * 16,
 					get_rgba(255, 255, 255, 255));

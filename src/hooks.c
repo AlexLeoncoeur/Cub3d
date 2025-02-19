@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:07:22 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 13:12:42 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:55:28 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ void	ft_controls_hook(void *param)
 	t_game_core	*game;
 
 	game = (t_game_core *)param;
-	game->data->player->movespeed = game->data->mlx->delta_time * 10.0;
+	game->data->player->m_speed = game->data->mlx->delta_time * 10.0;
 	xo_yo_fix(game->pj);
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_ESCAPE))
+	{
 		ft_exit(game->data, EXIT_SUCCESS);
+		ft_delete(game);
+	}
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_W))
 		move_up(game);
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_A))

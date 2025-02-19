@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 18:05:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:31:36 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	find_wall_side(t_game_core *game, t_ray *ray)
 		game->data->tx = 0;
 }
 
-static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_game_core *game)
+static void	ft_wall_thickness(mlx_image_t *image,
+	t_wall *wall, t_ray *ray, t_game_core *game)
 {
 	int	texture;
 	int	tx;
@@ -47,22 +48,21 @@ static void	ft_wall_thickness(mlx_image_t *image, t_wall *wall, t_ray *ray, t_ga
 	ty = (int)(game->data->ty);
 	if (ray->v_h == 0)
 	{
-		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2)) //Este, amarillo
-			texture = get_rgba(game->data->texture_buffer[0][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[0][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[0][(int)(ty * 64 + tx) * 4 + 2], 255);
-		else//Oeste, rojo
-			texture = get_rgba(game->data->texture_buffer[3][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[3][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[3][(int)(ty * 64 + tx) * 4 + 2], 255);
+		texture = find_color(game, tx, ty, 3);
+		if ((ray->rangle <= (PI / 2) || ray->rangle > (3 * PI) / 2))
+			texture = find_color(game, tx, ty, 0);
 	}
 	else if (ray->v_h == 1)
 	{
-		if (ray->rangle < (PI) && ray->rangle > (0)) //Sur, rosa
-			texture = get_rgba(game->data->texture_buffer[1][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[1][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[1][(int)(ty * 64 + tx) * 4 + 2], 255);
-		else//Norte, azul
-			texture = get_rgba(game->data->texture_buffer[2][(int)(ty * 64 + tx) * 4], game->data->texture_buffer[2][(int)(ty * 64 + tx) * 4 + 1], game->data->texture_buffer[2][(int)(ty * 64 + tx) * 4 + 2], 255);
+		texture = find_color(game, tx, ty, 2);
+		if (ray->rangle < (PI) && ray->rangle > (0))
+			texture = find_color(game, tx, ty, 1);
 	}
 	mlx_put_pixel(image, ray->count, wall->y + wall->y_offset, texture);
 }
 
-static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, t_game_core *game, int i)
+static void	draw_wall_lines(mlx_image_t *image,
+	t_ray *ray, t_wall *wall, t_game_core *game)
 {
 	float	dx;
 	float	dy;
@@ -70,16 +70,13 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, t_game
 	float	increment_x;
 	float	increment_y;
 
-	wall->x = ray->rx;
-	wall->y = 0;
-	game->data->ty = (game->data->ty_step * game->data->ty_off);
 	find_wall_side(game, ray);
 	dx = fabs(ray->rx - wall->x);
 	dy = fabs((wall->lineheight) - wall->y);
 	steps = fmax(dx, dy);
-	increment_x = dx / steps; //increments each axis to know which points to draw
+	increment_x = dx / steps;
 	increment_y = dy / steps;
-	while (++i < steps)//to draw the points between the start (p1) and end (p2) point
+	while (++game->i < steps)
 	{
 		ft_wall_thickness(image, wall, ray, game);
 		if (ray->rx < wall->x)
@@ -94,6 +91,14 @@ static void	draw_wall_lines(mlx_image_t *image, t_ray *ray, t_wall *wall, t_game
 	}
 }
 
+static void	ft_restart_angle(t_ray *ray)
+{
+	if (ray->a_cos < 0)
+		ray->a_cos += 2 * PI;
+	if (ray->a_cos >= 2 * PI)
+		ray->a_cos -= 2 * PI;
+}
+
 void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 {
 	t_wall	*wall;
@@ -101,15 +106,14 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 	wall = malloc(sizeof(t_wall));
 	if (!wall)
 		exit(EXIT_FAILURE);
+	wall->x = ray->rx;
+	wall->y = 0;
 	ray->a_cos = ray->rangle - game->pj->pangle;
-	if (ray->a_cos < 0)
-		ray->a_cos += 2 * PI;
-	if (ray->a_cos >= 2 * PI)
-		ray->a_cos -= 2 * PI;
+	ft_restart_angle(ray);
 	ray->real_distance = ray->total_dis;
 	ray->total_dis = ray->total_dis * cos(ray->a_cos);
 	ray->total_dis = fmax(ray->total_dis, 0.0001);
-	wall->lineheight = (16 * game->data->height) / ray->total_dis; //cube size * wall desired height. Distance to wall changes size
+	wall->lineheight = (16 * game->data->height) / ray->total_dis;
 	game->data->ty_step = 64 / wall->lineheight;
 	game->data->ty_off = 0;
 	if (wall->lineheight > game->data->height)
@@ -118,48 +122,13 @@ void	ft_manage_3d_walls(t_game_core *game, t_ray *ray)
 		wall->lineheight = game->data->height;
 	}
 	wall->y_offset = (game->data->height / 2) - (wall->lineheight / 2);
-	draw_wall_lines(game->img, ray, wall, game, -1);
+	game->data->ty = (game->data->ty_step * game->data->ty_off);
+	game->i = -1;
+	draw_wall_lines(game->img, ray, wall, game);
+	free(wall);
 }
 
-static void	ft_draw_pj_icon(mlx_image_t *image, t_player *pj)
-{
-	mlx_put_pixel(image, pj->pic_x, pj->pic_y, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x, pj->pic_y + 1, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x + 1, pj->pic_y, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x, pj->pic_y - 1, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x - 1, pj->pic_y, get_rgba(51, 255, 246, 255));
-}
-
-void	draw_pj(mlx_image_t *image, t_player *pj, int i)
-{
-	double	dx;
-	double	dy;
-	double	steps;
-	double	increment_x;
-	double	increment_y;
-
-	pj->pic_x = pj->x;
-	pj->pic_y = pj->y;
-	dx = fabs(pj->pdx * 5);
-	dy = fabs(pj->pdy * 5);
-	steps = fmax(dx, dy);
-	increment_x = dx / steps; //increments each axis to know which points to draw
-	increment_y = dy / steps;
-	while (++i < steps - 8) //to draw the points between the start (p1) and end (p2) point
-	{
-		ft_draw_pj_icon(image, pj);
-		if (pj->pdx + pj->x < pj->x)
-			pj->pic_x -= increment_x;
-		else
-			pj->pic_x += increment_x;
-		if (pj->pdy + pj->y < pj->y)
-			pj->pic_y -= increment_y;
-		else
-			pj->pic_y += increment_y;
-	}
-}
-
-void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i)
+/* void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i)
 {
 	float	dx;
 	float	dy;
@@ -172,9 +141,10 @@ void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i)
 	dx = fabs(ray->rx - pj->pic_x);
 	dy = fabs(ray->ry - pj->pic_y);
 	steps = fmax(dx, dy);
-	increment_x = dx / steps; //increments each axis to know which points to draw
+	increment_x = dx / steps;
 	increment_y = dy / steps;
-	while (++i < steps && pj->pic_x > 0 && pj->pic_x < 1280 && pj->pic_y > 0 && pj->pic_y < 720) //to draw the points between the start (p1) and end (p2) point
+	while (++i < steps && pj->pic_x > 0 && pj->pic_x 
+	< 1280 && pj->pic_y > 0 && pj->pic_y < 720)
 	{
 		mlx_put_pixel(image, pj->pic_x, pj->pic_y, get_rgba(165, 51, 255, 255));
 		if (ray->rx < pj->x)
@@ -186,4 +156,4 @@ void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i)
 		else
 			pj->pic_y += increment_y;
 	}
-}
+} */

@@ -6,18 +6,22 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 16:52:39 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 16:49:56 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:31:46 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	ft_restart_angle(t_ray *ray)
+int	find_color(t_game_core *game, int tx, int ty, int side)
 {
-	if (ray->rangle < 0)
-		ray->rangle += 2 * PI;
-	if (ray->rangle > 2 * PI)
-		ray->rangle -= 2 * PI;
+	int	r;
+	int	g;
+	int	b;
+
+	r = game->data->texture_buffer[side][(int)(ty * 64 + tx) *4];
+	g = game->data->texture_buffer[side][(int)(ty * 64 + tx) *4 + 1];
+	b = game->data->texture_buffer[side][(int)(ty * 64 + tx) *4 + 2];
+	return (get_rgba(r, g, b, 255));
 }
 
 static void	ft_next_ray_dir(t_game_core *game, t_ray *ray)
@@ -57,10 +61,9 @@ void	draw_rays(t_game_core *game)
 	ray->hx = ray->rx;
 	ray->hy = ray->ry;
 	ray->rangle = game->pj->pangle - (DR * 40);
-	ft_restart_angle(ray);
-	ray->count = 0;
+	ray->count = -1;
 	ray->v_h = 0;
-	while (ray->count < game->data->width)
+	while (++ray->count < game->data->width)
 	{
 		ray->dof = 0;
 		ray->dis_h = 1000000;
@@ -71,10 +74,10 @@ void	draw_rays(t_game_core *game)
 		ray->vy = ray->ry;
 		ft_vertical_lines(game, ray);
 		ft_shortest_ray(ray);
-		//draw_ray_line(game->img, game->pj, ray, -1);
 		ft_manage_3d_walls(game, ray);
 		ft_next_ray_dir(game, ray);
-		ray->count++;
 	}
-		//funcion para borrar ray
+	free(ray);
 }
+//ft_restart_angle(ray);
+//draw_ray_line(game->img, game->pj, ray, -1);
