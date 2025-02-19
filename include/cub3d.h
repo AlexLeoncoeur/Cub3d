@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 11:55:39 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:52:56 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@
 
 typedef struct s_anim
 {
-	
+	int			frame;
+	mlx_image_t	**torch;
 }	t_anim;
 
 typedef struct s_wall
@@ -131,6 +132,7 @@ typedef struct s_data
 	mlx_texture_t	*e_wall;
 	mlx_texture_t	*w_wall;
 	t_paths			text_paths;
+	t_anim			torch;
 }	t_data;
 
 typedef struct s_game_core
@@ -280,5 +282,19 @@ void	ft_init_data_pj(t_game_core *data, t_player *pj, mlx_image_t *img);
 void	ft_manage_3d_walls(t_game_core *game, t_ray *ray);
 void	draw_pj(mlx_image_t *image, t_player *pj, int i);
 void	draw_ray_line(mlx_image_t *image, t_player *pj, t_ray *ray, int i);
+
+/**
+ * @brief Loads animation to mlx
+ * 
+ * @param data 
+ */
+void	ft_load_animation(t_data *data);
+
+/**
+ * @brief Executes the animations
+ * 
+ * @param data 
+ */
+void	ft_animations(t_data *data);
 
 #endif

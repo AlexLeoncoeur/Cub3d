@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/01/30 14:05:35 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:17:50 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ static void	ft_clean(t_data *data)
 		free(data->text_paths.south);
 	if (data->text_paths.west)
 		free(data->text_paths.west);
+	if (data->torch.torch)
+	{
+		free(data->torch.torch);
+	}
 }
 
 void	ft_exit(t_data *data, int status)

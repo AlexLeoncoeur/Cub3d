@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 17:35:47 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:10:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ void	ft_draw_2d(void *param)
 		}
 	}
 	ft_draw_player(game, game->img);
+	ft_animations(game->data);
 }

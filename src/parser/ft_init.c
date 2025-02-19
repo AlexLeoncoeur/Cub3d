@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 11:44:36 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:44:50 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	ft_init(t_data *data, char *file)
 	ft_load_textures(data);
 	ft_map_check(data);
 	ft_texture_check(data);
+	ft_load_animation(data);
 }

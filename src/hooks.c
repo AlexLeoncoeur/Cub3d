@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:07:22 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 11:22:49 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 13:12:42 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_mouse_rotation(t_game_core *game)
 		turn_left(game);
 	else if (x > game->data->mousex)
 		turn_right(game);
-	mlx_set_mouse_pos(game->data->mlx, game->data->width / 2,
+	mlx_set_mouse_pos(game->data->mlx, game->data->width * 2,
 		game->data->height / 2);
 	mlx_get_mouse_pos(game->data->mlx, &x, &y);
 	game->data->mousex = x;
