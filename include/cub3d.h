@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 17:41:25 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:55:39 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,16 @@
 # define ERR_ARGC		6
 # define ERR_EXT		7
 
+# define WIDTH 	1920
+# define HEIGHT 1080
+
 # define PI 3.14159265359
 # define DR 0.0174533
+
+typedef struct s_anim
+{
+	
+}	t_anim;
 
 typedef struct s_wall
 {
@@ -88,6 +96,7 @@ typedef struct s_player
 	double			pangle;
 	double			pic_x;
 	double			pic_y;
+	double			movespeed;
 }	t_player;
 
 typedef struct s_paths
@@ -109,6 +118,8 @@ typedef struct s_data
 	uint8_t			*texture_buffer[4];
 	int				map_rows;
 	int				map_longest_row;
+	int				mousex;
+	int				animcounter;
 	float			tx;
 	float			ty;
 	float			ty_step;
@@ -141,6 +152,9 @@ typedef struct s_game_core
 /* -- main.c -- */
 void	ft_draw_player(t_game_core *game, mlx_image_t *img);
 void	ft_resize(int width, int height, void *param);
+
+/* -- hooks.c -- */
+void	ft_controls_hook(void *param);
 
 /* -- map.c -- */
 int		get_rgba(int r, int g, int b, int a);

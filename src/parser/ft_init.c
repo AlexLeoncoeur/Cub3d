@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/18 16:59:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:44:36 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	ft_init_mlx(t_data *data)
 		ft_errors(data, ERR_MLX, NULL);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 		ft_errors(data, ERR_MLX, NULL);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	data->mousex = 0;
 }
 
 static char	*ft_clean_textures(char *texture)

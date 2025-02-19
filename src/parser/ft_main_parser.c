@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/18 10:52:31 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:28:21 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ static void	save_textures(t_data *data, char *line)
 		len++;
 	if (len <= 1 && aux[0][0] != '\n')
 		ft_errors(data, ERR_TEXT, "Error: no texture");
-	ft_aux_trim(data, aux, line);
+	if (aux && aux[0][0] != '\n')
+		ft_aux_trim(data, aux, line);
+	else
+		ft_clean_array(aux);
 }
 
 static char	*parse_textures(t_data *data, int fd)

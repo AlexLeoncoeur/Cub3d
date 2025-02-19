@@ -13,7 +13,7 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = main.c ft_exit.c map.c\
+CFILES = main.c ft_exit.c map.c hooks.c\
 
 PARSER_FILES = ft_init.c ft_main_parser.c ft_map_check.c ft_player_position.c ft_texture_check.c
 
