@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miscellaneus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 12:36:27 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 17:52:29 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:24:54 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	ft_search_start(t_game_core *game)
 	char		start_pos;
 
 	i = -1;
-	while (++i < 33)
+	while (++i < game->data->map_longest_row)
 	{
 		j = -1;
 		while (++j < game->data->map_rows)

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/05 16:39:49 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:41:00 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static void	ft_check_arround(t_data *data, int i, int j)
 {
-	if (i == 0 || j == 0 || !data->map[i + 1][j] || !data->map[i][j + 1]
-		|| !data->map[i + 1][j + 1])
+	char	aux;
+
+	aux = data->map[i + 1][j + 1];
+	if (i == 0 || j == 0 || !data->map[i + 1][j] || !data->map[i][j + 1])
 		ft_errors(data, ERR_CUST, "Open map, missing walls");
 	if ((data->map[i + 1][j] != '1' && data->map[i + 1][j] != '0'
 		&& data->map[i + 1][j] != 'N' && data->map[i + 1][j] != 'S'
@@ -82,12 +84,12 @@ static void	ft_character_check(t_data *data)
 	while (data->map[i])
 	{
 		j = 0;
-		while (data->map[j])
+		while (data->map[i][j])
 		{
 			if (data->map[i][j] != '1' && data->map[i][j] != '0'
 				&& data->map[i][j] != ' ' && data->map[i][j] != 'N'
 				&& data->map[i][j] != 'S' && data->map[i][j] != 'E'
-				&& data->map[i][j] != 'W')
+				&& data->map[i][j] != 'W' && data->map[i][j] != '\n')
 				ft_errors(data, ERR_CUST, "Invalid character in map");
 			j++;
 		}

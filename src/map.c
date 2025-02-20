@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 17:46:42 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:25:00 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_draw_2d(void *param)
 	ft_refresh_half_screen(game);
 	draw_background(game);
 	draw_rays(game);
-	while (++i < 33)
+	while (++i < game->data->map_longest_row)
 	{
 		j = -1;
 		while (++j < game->data->map_rows)

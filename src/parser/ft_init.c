@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 12:44:50 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:58:58 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	ft_init_data(t_data *data)
 	data->e_wall = NULL;
 	data->w_wall = NULL;
 	data->player = malloc(sizeof(t_player));
+	data->animcounter = 0;
 }
 
 static void	ft_init_mlx(t_data *data)
@@ -79,8 +80,8 @@ void	ft_init(t_data *data, char *file)
 	data->text_paths.north = ft_clean_textures(data->text_paths.north);
 	data->text_paths.south = ft_clean_textures(data->text_paths.south);
 	data->text_paths.west = ft_clean_textures(data->text_paths.west);
+	ft_texture_check(data);
 	ft_load_textures(data);
 	ft_map_check(data);
-	ft_texture_check(data);
 	ft_load_animation(data);
 }

@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:54 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 13:01:59 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:07:08 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_animations(t_data *data)
 {
-	if (data->animcounter < 0.05)
+	if (data->animcounter < 0.1)
 	{
 		data->animcounter += data->mlx->delta_time;
 		return ;

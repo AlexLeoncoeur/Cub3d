@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 12:28:21 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:31:34 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ static char	*parse_textures(t_data *data, int fd)
 	char	*line;
 
 	line = get_next_line(fd);
-	while (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
-		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3)
-		|| !ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)
-		|| !ft_strncmp(line, "\n", 1))
+	while (line && (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
+			|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3)
+			|| !ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)
+			|| !ft_strncmp(line, "\n", 1)))
 	{
 		if (!ft_strncmp(line, "NO ", 3) && data->text_paths.north)
 			ft_errors(data, ERR_TEXT, "Error: north wall texture");
@@ -124,6 +124,8 @@ void	ft_main_parser(t_data *data, char *file)
 		ft_errors(data, ERR_FD, NULL);
 	i = 0;
 	map[i] = parse_textures(data, fd);
+	if (!map[i])
+		ft_errors(data, ERR_CUST, "Invalid map\n");
 	while (map[i] && map[i][0] != '\n')
 	{
 		i++;
@@ -131,7 +133,6 @@ void	ft_main_parser(t_data *data, char *file)
 	}
 	if (map[i] && map[i][0] == '\n')
 		free(map[i]);
-	map[i] = 0;
 	data->map = map;
 	ft_player_coords(data, map);
 }

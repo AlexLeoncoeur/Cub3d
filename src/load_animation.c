@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_animation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 12:30:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 18:36:40 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:07:53 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	load_torch(t_data *data, int i)
 	free(aux);
 	texture = mlx_load_png(path);
 	data->torch.torch[i] = mlx_texture_to_image(data->mlx, texture);
-	mlx_image_to_window(data->mlx, data->torch.torch[i], data->width / 2,
+	mlx_image_to_window(data->mlx, data->torch.torch[i], data->width / 2 + 300,
 		data->height / 2);
 	data->torch.torch[i]->enabled = 0;
 	mlx_delete_texture(texture);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_vertical_lines.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:55:59 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 18:37:51 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:24:21 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 {
-	while (ray->dof < 33 && ray->ry > 0 && ray->rx > 0
+	while (ray->dof < game->data->map_longest_row && ray->ry > 0 && ray->rx > 0
 		&& ray->rx < game->data->width && ray->ry < game->data->height)
 	{
 		ray->mx = (int)ray->rx >> 4;
 		ray->my = (int)ray->ry >> 4;
-		ray->mp = ray->my * 33 + ray->mx;
-		if (ray->mp > 0 && ray->mp < 33 * game->data->map_rows
+		ray->mp = ray->my * game->data->map_longest_row + ray->mx;
+		if (ray->mp > 0 && ray->mp < game->data->map_longest_row
+			* game->data->map_rows
 			&& game->data->map[ray->my][ray->mx] == '1')
 		{
 			ray->vx = ray->rx;
 			ray->vy = ray->ry;
 			ray->dis_v = ft_distance(game, ray->vx, ray->vy);
-			ray->dof = 33;
+			ray->dof = game->data->map_longest_row;
 		}
 		else
 		{
@@ -43,7 +44,7 @@ static void	ft_looking_straight_up_down(t_game_core *game, t_ray *ray)
 	{
 		ray->rx = game->pj->x;
 		ray->ry = game->pj->y;
-		ray->dof = 33;
+		ray->dof = game->data->map_longest_row;
 	}
 }
 

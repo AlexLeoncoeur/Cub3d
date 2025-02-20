@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/19 16:33:19 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:17:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,6 @@ static void	ft_clean(t_data *data)
 		free(data->text_paths.south);
 	if (data->text_paths.west)
 		free(data->text_paths.west);
-	if (data->torch.torch)
-	{
-		free(data->torch.torch);
-	}
 }
 
 void	ft_exit(t_data *data, int status)

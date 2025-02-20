@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:38:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/18 10:53:20 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:58:06 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_texture_check(t_data *data)
 
 	if (!data->text_paths.east || !data->text_paths.north
 		|| !data->text_paths.south || !data->text_paths.west)
-		ft_errors(data, ERR_CUST, "Textures are not at the start of the file");
+		ft_errors(data, ERR_CUST, "Missing or misplaced textures");
 	fd = open(data->text_paths.east, O_RDONLY);
 	if (fd < 0)
 		ft_errors(data, ERR_CUST, "Invalid east fd");

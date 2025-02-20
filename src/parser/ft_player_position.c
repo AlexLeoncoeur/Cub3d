@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_player_position.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:14:13 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/18 17:00:13 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:22:15 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	ft_map_measuring(t_data *data)
 	int	i;
 	int	j;
 
+	data->map_longest_row = 0;
+	data->map_rows = 0;
 	i = 0;
 	while (data->map[i])
 	{
