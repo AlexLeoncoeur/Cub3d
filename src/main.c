@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/20 10:57:50 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:50:12 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
 
 static int	ft_check_cub(char *name)
 {
@@ -54,8 +59,10 @@ void	ft_draw_player(t_game_core *game, mlx_image_t *img)
 		j = -4;
 		while (j < 4)
 		{
-			mlx_put_pixel(image, game->pj->x + i, game->pj->y + j,
-				get_rgba(51, 255, 246, 255));
+			if (game->pj->x + i < game->data->width
+				&& game->pj->y + j < game->data->height)
+				mlx_put_pixel(image, game->pj->x + i, game->pj->y + j,
+					get_rgba(128, 0, 128, 255));
 			j++;
 		}
 		i++;
@@ -87,6 +94,5 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game->id, &ft_draw_2d, game);
 	mlx_loop_hook(game->id, &ft_controls_hook, game);
 	mlx_loop(game->id);
-	mlx_terminate(game->id);
-	return (0);
+	return (mlx_terminate(game->id), 0);
 }

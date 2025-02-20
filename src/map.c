@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/20 12:25:00 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:31:06 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
 
 static void	draw_background(t_game_core *game)
 {
@@ -91,13 +86,13 @@ void	ft_draw_2d(void *param)
 		j = -1;
 		while (++j < game->data->map_rows)
 		{
-			if (game->data->map[j][i] == '1' || game->data->map[j][i] == ' ')
-				ft_draw_square(game, i * 16, j * 16, get_rgba(0, 0, 0, 255));
-			else if (check_valid_pos(game->data->map[j][i]))
+			if (check_valid_pos(game->data->map[j][i]))
 			{
 				ft_draw_square(game, i * 16, j * 16,
 					get_rgba(255, 255, 255, 255));
 			}
+			else if (game->data->map[j][i] == '1' || game->data->map[j][i] == ' ')
+				ft_draw_square(game, i * 16, j * 16, get_rgba(0, 0, 0, 255));
 		}
 	}
 	ft_draw_player(game, game->img);

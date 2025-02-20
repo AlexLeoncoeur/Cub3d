@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:10:46 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/19 18:11:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:50:01 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 static void	ft_draw_pj_icon(mlx_image_t *image, t_player *pj)
 {
-	mlx_put_pixel(image, pj->pic_x, pj->pic_y, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x, pj->pic_y + 1, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x + 1, pj->pic_y, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x, pj->pic_y - 1, get_rgba(51, 255, 246, 255));
-	mlx_put_pixel(image, pj->pic_x - 1, pj->pic_y, get_rgba(51, 255, 246, 255));
+	if (pj->x < 1920 && pj->y < 1065)
+		mlx_put_pixel(image, pj->pic_x, pj->pic_y, get_rgba(128, 0, 128, 255));
+	if (pj->x < 1919 && pj->y + 1 < 1065)
+		mlx_put_pixel(image, pj->pic_x, pj->pic_y + 1,
+			get_rgba(128, 0, 128, 255));
+	if (pj->x + 1 < 1920 && pj->y < 1065)
+		mlx_put_pixel(image, pj->pic_x + 1, pj->pic_y,
+			get_rgba(128, 0, 128, 255));
+	if (pj->x < 1920 && pj->y - 1 < 1065)
+		mlx_put_pixel(image, pj->pic_x, pj->pic_y - 1,
+			get_rgba(128, 0, 128, 255));
+	if (pj->x - 1 < 1920 && pj->y < 1065)
+		mlx_put_pixel(image, pj->pic_x - 1, pj->pic_y,
+			get_rgba(128, 0, 128, 255));
 }
 
 void	draw_pj(mlx_image_t *image, t_player *pj, int i)

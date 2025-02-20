@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_main_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/20 12:31:34 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:16:44 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,5 @@ void	ft_main_parser(t_data *data, char *file)
 		free(map[i]);
 	data->map = map;
 	ft_player_coords(data, map);
+	ft_map_check(data);
 }

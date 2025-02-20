@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_horizontal_lines.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:37:54 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/20 12:24:44 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:27:58 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	ft_check_cube_hit(t_game_core *game, t_ray *ray)
 {
-	while (ray->dof < game->data->map_rows && ray->rx > 0 && ray->ry > 0
-		&& ray->rx < game->data->width && ray->ry < game->data->height)
+	while (ray->dof < game->data->map_rows && ray->rx > 0 && ray->ry > 0)
 	{
 		ray->mx = (int)ray->rx >> 4;
 		ray->my = (int)ray->ry >> 4;
