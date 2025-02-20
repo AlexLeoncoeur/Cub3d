@@ -6,7 +6,7 @@
 /*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/20 14:31:06 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:10:04 by aarenas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,22 @@ void	ft_draw_2d(void *param)
 	ft_refresh_half_screen(game);
 	draw_background(game);
 	draw_rays(game);
-	while (++i < game->data->map_longest_row)
+	while (++i < game->data->map_rows && i < 1080 / 16)
 	{
 		j = -1;
-		while (++j < game->data->map_rows)
+		while (++j < (int)ft_strlen(game->data->map[i]) && j < 1920 / 16)
 		{
-			if (check_valid_pos(game->data->map[j][i]))
+			printf("%c", game->data->map[i][j]);
+			if (check_valid_pos(game->data->map[i][j]))
 			{
-				ft_draw_square(game, i * 16, j * 16,
+				ft_draw_square(game, j * 16, i * 16,
 					get_rgba(255, 255, 255, 255));
 			}
-			else if (game->data->map[j][i] == '1' || game->data->map[j][i] == ' ')
-				ft_draw_square(game, i * 16, j * 16, get_rgba(0, 0, 0, 255));
+			else if (!check_valid_pos(game->data->map[i][j]))
+				ft_draw_square(game, j * 16, i * 16, get_rgba(0, 0, 0, 255));
 		}
 	}
+	printf("\n");
 	ft_draw_player(game, game->img);
 	ft_animations(game->data);
 }
