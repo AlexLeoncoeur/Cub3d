@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   hooks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:07:22 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:39:19 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:48:54 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 static void	xo_yo_fix(t_player *pj)
 {
@@ -28,6 +28,24 @@ static void	xo_yo_fix(t_player *pj)
 	pj->mpy = pj->y / 16;
 	pj->mpy_plus_yo = (pj->y + pj->yo) / 16;
 	pj->mpy_minus_yo = (pj->y - pj->yo) / 16;
+}
+
+static void	ft_mouse_rotation(t_game_core *game)
+{
+	int	x;
+	int	y;
+
+	mlx_get_mouse_pos(game->data->mlx, &x, &y);
+	if (x != game->data->width / 2 && game->data->mousex == 0)
+		game->data->mousex = x;
+	if (x < game->data->mousex)
+		turn_left(game);
+	else if (x > game->data->mousex)
+		turn_right(game);
+	mlx_set_mouse_pos(game->data->mlx, game->data->width / 2,
+		game->data->height / 2);
+	mlx_get_mouse_pos(game->data->mlx, &x, &y);
+	game->data->mousex = x;
 }
 
 void	ft_controls_hook(void *param)
@@ -54,4 +72,5 @@ void	ft_controls_hook(void *param)
 		turn_left(game);
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_RIGHT))
 		turn_right(game);
+	ft_mouse_rotation(game);
 }

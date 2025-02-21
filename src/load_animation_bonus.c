@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_animation.c                                   :+:      :+:    :+:   */
+/*   load_animation_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 12:30:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/20 11:07:53 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:48:47 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 static void	load_torch(t_data *data, int i)
 {

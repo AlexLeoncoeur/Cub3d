@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/21 13:52:36 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:48:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "MLX42/include/MLX42/MLX42.h"
 # include "colors.h"
@@ -36,6 +36,12 @@
 
 # define PI 3.14159265359
 # define DR 0.0174533
+
+typedef struct s_anim
+{
+	int			frame;
+	mlx_image_t	**torch;
+}	t_anim;
 
 typedef struct s_wall
 {
@@ -113,6 +119,8 @@ typedef struct s_data
 	uint8_t			*texture_buffer[4];
 	int				map_rows;
 	int				map_longest_row;
+	int				mousex;
+	float			animcounter;
 	float			tx;
 	float			ty;
 	float			ty_step;
@@ -124,6 +132,7 @@ typedef struct s_data
 	mlx_texture_t	*e_wall;
 	mlx_texture_t	*w_wall;
 	t_paths			text_paths;
+	t_anim			torch;
 }	t_data;
 
 typedef struct s_game_core

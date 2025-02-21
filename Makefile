@@ -13,12 +13,20 @@ RED		= \033[31;1m
 #---------- BASE ----------#
 
 # FILES 
-CFILES = main.c ft_exit.c map.c hooks.c animation.c load_animation.c leaks_norm.c\
+CFILES = main.c ft_exit.c map.c hooks.c leaks_norm.c\
 
 PARSER_FILES = ft_init.c ft_main_parser.c ft_map_check.c ft_player_position.c ft_texture_check.c
 
 RAY_CASTING_CFILES = movement.c ray_casting.c miscellaneus.c drawing.c ray_vertical_lines.c turn_move.c draw_pj.c\
 ray_horizontal_lines.c
+
+# BONUS
+CFILES_BONUS =  main_bonus.c ft_exit_bonus.c map_bonus.c hooks_bonus.c animation_bonus.c load_animation_bonus.c leaks_norm_bonus.c
+
+PARSER_FILES_BONUS = ft_init_bonus.c ft_main_parser_bonus.c ft_map_check_bonus.c ft_player_position_bonus.c ft_texture_check_bonus.c
+
+RAY_CASTING_CFILES_BONUS = movement_bonus.c ray_casting_bonus.c miscellaneus_bonus.c drawing_bonus.c ray_vertical_lines_bonus.c turn_move_bonus.c draw_pj_bonus.c\
+ray_horizontal_lines_bonus.c
 
 # DIRECTORIES 
 SRC_DIR = src/
@@ -30,8 +38,12 @@ OBJ_DIR = objs/
 # OBJECTS
 OFILES = $(addprefix $(OBJ_DIR), $(CFILES:.c=.o))
 PARSER_OFILES = $(addprefix $(OBJ_DIR)parser/, $(PARSER_FILES:.c=.o))
-BUILT_IN_OFILES = $(addprefix $(OBJ_DIR)built_ins/, $(BUILT_IN_CFILES:.c=.o))
 RAY_CASTING_OFILES = $(addprefix $(OBJ_DIR)ray_casting/, $(RAY_CASTING_CFILES:.c=.o))
+
+# OBJECTS BONUS
+OFILES_BONUS = $(addprefix $(OBJ_DIR), $(CFILES_BONUS:.c=.o))
+PARSER_OFILES_BONUS = $(addprefix $(OBJ_DIR)parser/, $(PARSER_FILES_BONUS:.c=.o))
+RAY_CASTING_OFILES_BONUS = $(addprefix $(OBJ_DIR)ray_casting/, $(RAY_CASTING_CFILES_BONUS:.c=.o))
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@ mkdir -p $(OBJ_DIR)
@@ -58,6 +70,7 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 
 CC = clang
 NAME = cub3d
+BONUS_NAME = cub3d_bonus
 CFLAGS = -Wall -Werror -Wextra
 MLX42 = include/MLX42/build/libmlx42.a
 
@@ -65,6 +78,12 @@ all: libft $(NAME)
 $(NAME): compiling $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) $(MLX42)
 	@ echo
 	@ $(CC) $(CFLAGS) $(PARSER_OFILES) $(RAY_CASTING_OFILES) $(BUILT_IN_OFILES) $(OFILES) include/libft/libft.a $(MLX42) -Iinclude -ldl -lglfw -pthread -lm -o $(NAME)
+	@ echo "$(YELLOW)COMPILATION FINISHED!$(RESET)"
+
+bonus: libft all $(BONUS_NAME)
+$(BONUS_NAME): compiling_bonus $(PARSER_OFILES_BONUS) $(RAY_CASTING_OFILES_BONUS) $(BUILT_IN_OFILES_BONUS) $(OFILES_BONUS) $(MLX42)
+	@ echo
+	@ $(CC) $(CFLAGS) $(PARSER_OFILES_BONUS) $(RAY_CASTING_OFILES_BONUS) $(BUILT_IN_OFILES_BONUS) $(OFILES_BONUS) include/libft/libft.a $(MLX42) -Iinclude -ldl -lglfw -pthread -lm -o $(BONUS_NAME)
 	@ echo "$(YELLOW)COMPILATION FINISHED!$(RESET)"
 
 debug: all
@@ -78,10 +97,6 @@ libft:
 $(MLX42):
 	@ make -C ./include/MLX42/build
 	@ make -C ./include/MLX42/build -j4
-
-bonus: all $(BONUS_NAME)
-$(BONUS_NAME): $(BONUS_OFILES) $(BONUS_ORDER_OFILES)
-	@ $(CC) $(CFLAGS) $(BONUS_OFILES) $(BONUS_ORDER_OFILES) -o $(BONUS_NAME)
 
 #---------- CLEAN ----------#
 
@@ -102,5 +117,8 @@ rebug: re debug
 
 compiling:
 	@ echo "$(MAGENTA)COMPILING PROJECT: $(RESET)"
+
+compiling_bonus:
+	@ echo "$(MAGENTA)COMPILING BONUS: $(RESET)"
 
 .PHONY: all clean fclean re bonus compiling libft MLX42 debug rebug

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                          :+:      :+:    :+:   */
+/*   ft_init_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:51:26 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:50:08 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../../include/cub3d_bonus.h"
 
 static void	ft_init_data(t_data *data)
 {
@@ -27,6 +27,7 @@ static void	ft_init_data(t_data *data)
 	data->e_wall = NULL;
 	data->w_wall = NULL;
 	data->player = malloc(sizeof(t_player));
+	data->animcounter = 0;
 }
 
 static void	ft_init_mlx(t_data *data)
@@ -39,6 +40,8 @@ static void	ft_init_mlx(t_data *data)
 		ft_errors(data, ERR_MLX, NULL);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
 		ft_errors(data, ERR_MLX, NULL);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	data->mousex = 0;
 }
 
 static char	*ft_clean_textures(char *texture)
@@ -80,4 +83,5 @@ void	ft_init(t_data *data, char *file)
 	ft_texture_check(data);
 	ft_load_textures(data);
 	ft_map_check(data);
+	ft_load_animation(data);
 }
