@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/20 11:17:06 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:47:53 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_errors(t_data *data, int error, char *msg)
 	else if (error == ERR_FD)
 		printf("Error: File descriptor error\n");
 	else if (error == ERR_TEXT)
-		perror(msg);
+		printf("%s\n", msg);
 	else if (error == ERR_COLOR)
 		perror(msg);
 	else if (error == ERR_MLX)

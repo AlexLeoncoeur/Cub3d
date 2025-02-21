@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:15:02 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/20 16:10:04 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/21 10:49:22 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	ft_draw_2d(void *param)
 		j = -1;
 		while (++j < (int)ft_strlen(game->data->map[i]) && j < 1920 / 16)
 		{
-			printf("%c", game->data->map[i][j]);
 			if (check_valid_pos(game->data->map[i][j]))
 			{
 				ft_draw_square(game, j * 16, i * 16,
@@ -96,7 +95,6 @@ void	ft_draw_2d(void *param)
 				ft_draw_square(game, j * 16, i * 16, get_rgba(0, 0, 0, 255));
 		}
 	}
-	printf("\n");
 	ft_draw_player(game, game->img);
 	ft_animations(game->data);
 }

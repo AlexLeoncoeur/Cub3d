@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/20 12:41:00 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:11:52 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static void	ft_check_arround(t_data *data, int i, int j)
 {
-	char	aux;
-
-	aux = data->map[i + 1][j + 1];
+	if (!data->map[i + 1])
+		ft_errors(data, ERR_CUST, "Open map, missing walls");
 	if (i == 0 || j == 0 || !data->map[i + 1][j] || !data->map[i][j + 1])
 		ft_errors(data, ERR_CUST, "Open map, missing walls");
 	if ((data->map[i + 1][j] != '1' && data->map[i + 1][j] != '0'
@@ -31,7 +30,7 @@ static void	ft_check_arround(t_data *data, int i, int j)
 		|| (data->map[i][j - 1] != '1' && data->map[i][j - 1] != '0'
 		&& data->map[i][j - 1] != 'N' && data->map[i][j - 1] != 'S'
 		&& data->map[i][j - 1] != 'E' && data->map[i][j - 1] != 'W'))
-		ft_errors(data, ERR_CUST, "Map is open");
+		ft_errors(data, ERR_CUST, "Open map, missing walls");
 }
 
 static void	ft_wall_check(t_data *data)
@@ -45,7 +44,7 @@ static void	ft_wall_check(t_data *data)
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] == '0')
+			if (data->map[i][j] == '0' || data->map[i][j] == 'W')
 				ft_check_arround(data, i, j);
 			j++;
 		}

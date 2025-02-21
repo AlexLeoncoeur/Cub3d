@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_main_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/20 14:16:44 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/21 12:16:27 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	ft_set_colors(t_data *data, char **aux)
 	i = 0;
 	rgb = ft_split(aux[1], ',');
 	if (!rgb)
-		ft_errors(data, ERR_COLOR, "error: invalid color");
+		ft_errors(data, ERR_COLOR, "Error: invalid color");
 	while (rgb[i])
 		i++;
 	if (i < 3 && aux[0][0] != '\n')
 	{
 		ft_clean_array(rgb);
 		ft_clean_array(aux);
-		ft_errors(data, ERR_COLOR, "error: no color");
+		ft_errors(data, ERR_COLOR, "Error: no color");
 	}
 	i = -1;
 	while (++i < 3)
@@ -67,23 +67,23 @@ static char	*parse_textures(t_data *data, int fd)
 	char	*line;
 
 	line = get_next_line(fd);
-	while (line && (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
-			|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3)
+	while (line && (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
+			|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)
 			|| !ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)
 			|| !ft_strncmp(line, "\n", 1)))
 	{
 		if (!ft_strncmp(line, "NO ", 3) && data->text_paths.north)
-			ft_errors(data, ERR_TEXT, "Error: north wall texture");
+			ft_errors(data, ERR_TEXT, "Error: north wall texture duplicated");
 		if (!ft_strncmp(line, "SO ", 3) && data->text_paths.south)
-			ft_errors(data, ERR_TEXT, "Error: south wall texture");
+			ft_errors(data, ERR_TEXT, "Error: south wall texture duplicated");
 		if (!ft_strncmp(line, "WE ", 3) && data->text_paths.west)
-			ft_errors(data, ERR_TEXT, "Error: west wall texture");
+			ft_errors(data, ERR_TEXT, "Error: west wall texture duplicated");
 		if (!ft_strncmp(line, "EA ", 3) && data->text_paths.east)
-			ft_errors(data, ERR_TEXT, "Error: east wall texture");
+			ft_errors(data, ERR_TEXT, "Error: east wall texture ducplicated");
 		if (!ft_strncmp(line, "F ", 2) && data->floor)
-			ft_errors(data, ERR_TEXT, "Error: floor color");
+			ft_errors(data, ERR_TEXT, "Error: floor color duplicated");
 		if (!ft_strncmp(line, "C ", 2) && data->sky)
-			ft_errors(data, ERR_TEXT, "Error: sky color");
+			ft_errors(data, ERR_TEXT, "Error: sky color duplicated");
 		save_textures(data, line);
 		free(line);
 		line = get_next_line(fd);
@@ -126,8 +126,10 @@ void	ft_main_parser(t_data *data, char *file)
 	map[i] = parse_textures(data, fd);
 	if (!map[i])
 		ft_errors(data, ERR_CUST, "Invalid map\n");
-	while (map[i] && map[i][0] != '\n')
+	while (map[i])
 	{
+		if ((int)ft_strlen(map[i]) == 1 && map[i][0] == '\n')
+			ft_errors(data, ERR_CUST, "Map can't have empty line/s\n");
 		i++;
 		map[i] = get_next_line(fd);
 	}
