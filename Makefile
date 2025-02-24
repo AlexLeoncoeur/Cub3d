@@ -104,7 +104,7 @@ clean:
 	@ echo "$(RED)CLEANING PROJECT ... $(RESET)"
 	@ rm -rf $(OBJ_DIR)
 	@ make --silent -C "include/libft/" fclean
-	@ make --silent -C "include/MLX42/build/" clean
+# @ make --silent -C "include/MLX42/build/" clean
 	@ echo "$(YELLOW)PROJECT CLEANED!\n $(RESET)"
 
 fclean: clean
