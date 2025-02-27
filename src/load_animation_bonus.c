@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 12:30:35 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:48:47 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:36:26 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_load_animation(t_data *data)
 
 	i = 0;
 	data->torch.torch = malloc(sizeof(mlx_image_t) * 10);
-	data->torch.frame = 0;
 	if (!data->torch.torch)
 		ft_errors(data, ERR_SYS, NULL);
+	data->torch.frame = 0;
 	while (i < 10)
 		load_torch(data, i++);
 }

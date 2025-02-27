@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 12:26:39 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:48:57 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:01:49 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	ft_clean(t_data *data)
 {
 	if (!data->mlx)
 		return ;
+	if (data->map)
+		ft_clean_array(data->map);
 	if (data->n_wall)
 		mlx_delete_texture(data->n_wall);
 	if (data->s_wall)
@@ -76,7 +78,7 @@ void	ft_errors(t_data *data, int error, char *msg)
 	else if (error == ERR_TEXT)
 		printf("%s\n", msg);
 	else if (error == ERR_COLOR)
-		perror(msg);
+		printf("%s\n", msg);
 	else if (error == ERR_MLX)
 		printf("MLX Error: %s", mlx_strerror(mlx_errno));
 	else if (error == ERR_ARGC)

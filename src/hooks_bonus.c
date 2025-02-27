@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:07:22 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:48:54 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:11:52 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ void	ft_controls_hook(void *param)
 	game->data->player->m_speed = game->data->mlx->delta_time * 10.0;
 	xo_yo_fix(game->pj);
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_ESCAPE))
-	{
 		ft_exit(game->data, EXIT_SUCCESS);
-		ft_delete(game);
-	}
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_W))
 		move_up(game);
 	if (mlx_is_key_down(game->data->mlx, MLX_KEY_A))

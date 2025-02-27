@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:50:08 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:06:51 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	ft_init_data(t_data *data)
 	data->e_wall = NULL;
 	data->w_wall = NULL;
 	data->player = malloc(sizeof(t_player));
+	if (!data->player)
+		ft_errors(data, ERR_SYS, NULL);
 	data->animcounter = 0;
 }
 

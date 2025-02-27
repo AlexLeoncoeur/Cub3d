@@ -6,11 +6,32 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 11:22:37 by jcallejo          #+#    #+#             */
-/*   Updated: 2025/02/21 13:50:03 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:26:36 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d_bonus.h"
+
+static void	color_counter(char **rgb, char **aux, t_data *data)
+{
+	int	i;
+	int	colors;
+
+	i = 0;
+	colors = 0;
+	while (rgb[i])
+	{
+		if (rgb[i][0] != '\n' && ft_is_str_num(rgb[i]))
+			colors++;
+		i++;
+	}
+	if (colors < 3 && aux[0][0] != '\n')
+	{
+		ft_clean_array(rgb);
+		ft_clean_array(aux);
+		ft_errors(data, ERR_COLOR, "Invalid or missing color");
+	}
+}
 
 void	ft_set_colors(t_data *data, char **aux)
 {
@@ -18,77 +39,22 @@ void	ft_set_colors(t_data *data, char **aux)
 	char		**rgb;
 	int			i;
 
-	i = 0;
 	rgb = ft_split(aux[1], ',');
 	if (!rgb)
-		ft_errors(data, ERR_COLOR, "Error: invalid color");
-	while (rgb[i])
-		i++;
-	if (i < 3 && aux[0][0] != '\n')
-	{
-		ft_clean_array(rgb);
-		ft_clean_array(aux);
-		ft_errors(data, ERR_COLOR, "Error: no color");
-	}
+		ft_errors(data, ERR_COLOR, "Invalid or missing color");
+	color_counter(rgb, aux, data);
 	i = -1;
 	while (++i < 3)
+	{
+		if (ft_atoi(rgb[i]) < 0 || ft_atoi(rgb[i]) > 255)
+			ft_errors(data, ERR_COLOR, "Invalid or missing color");
 		col[i] = ft_atoi(rgb[i]);
+	}
 	if (aux[0][0] == 'F')
 		data->floor = col[0] << 24 | col[1] << 16 | col[2] << 8 | 0x000000FF;
 	else
 		data->sky = col[0] << 24 | col[1] << 16 | col[2] << 8 | 0x000000FF;
 	ft_clean_array(rgb);
-}
-
-static void	save_textures(t_data *data, char *line)
-{
-	char	**aux;
-	int		len;
-
-	len = 0;
-	aux = ft_split(line, ' ');
-	if (!aux)
-	{
-		ft_clean_array(aux);
-		ft_errors(data, ERR_SYS, NULL);
-	}
-	while (aux[len])
-		len++;
-	if (len <= 1 && aux[0][0] != '\n')
-		ft_errors(data, ERR_TEXT, "Error: no texture");
-	if (aux && aux[0][0] != '\n')
-		ft_aux_trim(data, aux, line);
-	else
-		ft_clean_array(aux);
-}
-
-static char	*parse_textures(t_data *data, int fd)
-{
-	char	*line;
-
-	line = get_next_line(fd);
-	while (line && (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
-			|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2)
-			|| !ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)
-			|| !ft_strncmp(line, "\n", 1)))
-	{
-		if (!ft_strncmp(line, "NO ", 3) && data->text_paths.north)
-			ft_errors(data, ERR_TEXT, "Error: north wall texture duplicated");
-		if (!ft_strncmp(line, "SO ", 3) && data->text_paths.south)
-			ft_errors(data, ERR_TEXT, "Error: south wall texture duplicated");
-		if (!ft_strncmp(line, "WE ", 3) && data->text_paths.west)
-			ft_errors(data, ERR_TEXT, "Error: west wall texture duplicated");
-		if (!ft_strncmp(line, "EA ", 3) && data->text_paths.east)
-			ft_errors(data, ERR_TEXT, "Error: east wall texture ducplicated");
-		if (!ft_strncmp(line, "F ", 2) && data->floor)
-			ft_errors(data, ERR_TEXT, "Error: floor color duplicated");
-		if (!ft_strncmp(line, "C ", 2) && data->sky)
-			ft_errors(data, ERR_TEXT, "Error: sky color duplicated");
-		save_textures(data, line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	return (line);
 }
 
 static int	count_lines(char *file)
@@ -119,13 +85,13 @@ void	ft_main_parser(t_data *data, char *file)
 
 	i = count_lines(file);
 	map = malloc(sizeof(char *) * (i + 1));
+	if (!map)
+		ft_errors(data, ERR_SYS, NULL);
 	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		ft_errors(data, ERR_FD, NULL);
 	i = 0;
-	map[i] = parse_textures(data, fd);
-	if (!map[i])
-		ft_errors(data, ERR_CUST, "Invalid map\n");
+	map[i] = ft_parse_textures(data, fd);
+	if (fd < 0 || !map[i])
+		ft_errors(data, ERR_CUST, "Invalid map or fd\n");
 	while (map[i])
 	{
 		if ((int)ft_strlen(map[i]) == 1 && map[i][0] == '\n')

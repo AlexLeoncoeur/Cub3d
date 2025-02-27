@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/21 13:48:26 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:09:32 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 # define PI 3.14159265359
 # define DR 0.0174533
+
+typedef struct s_game_core	t_game_core;
 
 typedef struct s_anim
 {
@@ -110,6 +112,7 @@ typedef struct s_paths
 
 typedef struct s_data
 {
+	t_game_core		*game;
 	char			**map;
 	t_player		*player;
 	mlx_t			*mlx;
@@ -214,6 +217,15 @@ void	ft_map_check(t_data *data);
 /* -- ft_texture_check.c -- */
 
 /**
+ * @brief Parses textures
+ * 
+ * @param data 
+ * @param fd 
+ * @return char* 
+ */
+char	*ft_parse_textures(t_data *data, int fd);
+
+/**
  * @brief Checks if textures are correct
  * 
  * @param data 
@@ -290,7 +302,6 @@ void	draw_pj(mlx_image_t *image, t_player *pj, int i);
 
 /* -- Leaks_norm.c -- */
 int		check_valid_pos(char c);
-void	ft_delete(t_game_core *game);
 
 /**
  * @brief Loads animation to mlx

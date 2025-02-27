@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   leaks_norm_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_is_str_num.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/19 16:22:26 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/27 13:02:34 by jcallejo         ###   ########.fr       */
+/*   Created: 2025/02/27 11:26:48 by jcallejo          #+#    #+#             */
+/*   Updated: 2025/02/27 11:30:08 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d_bonus.h"
+#include "libft.h"
 
-int	check_valid_pos(char c)
+int	ft_is_str_num(char *str)
 {
-	if (c == 'S' || c == 'W' || c == 'N' || c == 'E' || c == '0')
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]) && str[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
 }

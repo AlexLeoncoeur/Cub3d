@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 17:16:36 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/18 10:43:11 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:27:44 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char		*ft_strrchr(const char *s, int c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s1);
 char		*ft_itoa(int n);
+int			ft_is_str_num(char *str);
 
 t_list		*ft_lstmap(t_list *lst, void *(f)(void *), void (*del)(void *));
 t_list		*ft_lstlast(t_list *lst);

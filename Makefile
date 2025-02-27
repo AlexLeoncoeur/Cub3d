@@ -69,8 +69,8 @@ $(OBJ_DIR)built_ins/%.o: $(BUILT_IN_SRC_DIR)%.c
 #---------- FLAGS & COMPILATION ----------#
 
 CC = clang
-NAME = cub3d
-BONUS_NAME = cub3d_bonus
+NAME = cub3D
+BONUS_NAME = cub3D_bonus
 CFLAGS = -Wall -Werror -Wextra
 MLX42 = include/MLX42/build/libmlx42.a
 
@@ -113,7 +113,7 @@ fclean: clean
 re: fclean all
 
 rebug: re debug
-	@ ./cub3d maps/map_2.cub
+	@ ./cub3D maps/map_2.cub
 
 compiling:
 	@ echo "$(MAGENTA)COMPILING PROJECT: $(RESET)"

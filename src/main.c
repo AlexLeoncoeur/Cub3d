@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aarenas- <aarenas-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:09 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/20 13:50:12 by aarenas-         ###   ########.fr       */
+/*   Updated: 2025/02/27 12:05:58 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,11 @@ int	main(int argc, char **argv)
 	game->id = data.mlx;
 	game->data = &data;
 	img = data.img;
+	data.game = game;
 	mlx_resize_hook(game->id, ft_resize, NULL);
 	ft_init_data_pj(game, pj, img);
 	mlx_loop_hook(game->id, &ft_draw_2d, game);
 	mlx_loop_hook(game->id, &ft_controls_hook, game);
 	mlx_loop(game->id);
-	return (mlx_terminate(game->id), 0);
+	return (ft_exit(&data, EXIT_SUCCESS), 0);
 }

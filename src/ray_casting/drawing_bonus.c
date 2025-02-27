@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:04:50 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/21 13:49:31 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:03:41 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	ft_wall_thickness(mlx_image_t *image,
 
 	texture = 0;
 	tx = (int)(game->data->tx);
-	ty = (int)(game->data->ty);
+	ty = (int)(game->data->ty) % 64;
 	if (ray->v_h == 0)
 	{
 		texture = find_color(game, tx, ty, 3);

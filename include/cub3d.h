@@ -6,7 +6,7 @@
 /*   By: jcallejo <jcallejo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 13:31:24 by aarenas-          #+#    #+#             */
-/*   Updated: 2025/02/21 13:52:36 by jcallejo         ###   ########.fr       */
+/*   Updated: 2025/02/27 12:05:41 by jcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 # define PI 3.14159265359
 # define DR 0.0174533
+
+typedef struct s_game_core	t_game_core;
 
 typedef struct s_wall
 {
@@ -104,6 +106,7 @@ typedef struct s_paths
 
 typedef struct s_data
 {
+	t_game_core		*game;
 	char			**map;
 	t_player		*player;
 	mlx_t			*mlx;
@@ -210,6 +213,8 @@ void	ft_map_check(t_data *data);
  * @param data 
  */
 void	ft_texture_check(t_data *data);
+
+char	*ft_parse_textures(t_data *data, int fd);
 
 /**
  * @brief Auxiliar function to help with memory leaks and freeing the trim
